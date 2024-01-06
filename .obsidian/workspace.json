@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "SQL必知必会.md",
+                "file": "读书笔记/SQL必知必会.md",
                 "mode": "source",
                 "source": false
               }
@@ -98,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "SQL必知必会.md",
+                "file": "读书笔记/SQL必知必会.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "SQL必知必会.md",
+                "file": "读书笔记/SQL必知必会.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "SQL必知必会.md"
+                "file": "读书笔记/SQL必知必会.md"
               }
             }
           },
@@ -168,10 +168,10 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "21ed0cdb5fe3ba59",
+  "active": "8dd997936b4bac9a",
   "lastOpenFiles": [
     "readme.md",
-    "SQL必知必会.md",
+    "读书笔记/SQL必知必会.md",
     "读书笔记",
     "test.md"
   ]
