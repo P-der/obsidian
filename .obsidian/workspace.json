@@ -18,8 +18,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "af60cdd540d3b8d9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "readme.md.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -85,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "test.md",
+                "file": "readme.md.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "test.md",
+                "file": "readme.md.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "test.md"
+                "file": "readme.md.md"
               }
             }
           },
@@ -142,7 +155,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 312.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -154,8 +167,9 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "13750b3638afd391",
+  "active": "440e83c3936247d9",
   "lastOpenFiles": [
-    "test.md"
+    "test.md",
+    "readme.md.md"
   ]
 }
