@@ -18,17 +18,8 @@
                 "source": false
               }
             }
-          },
-          {
-            "id": "ef7178eca2c413ce",
-            "type": "leaf",
-            "state": {
-              "type": "git-view",
-              "state": {}
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -137,9 +128,17 @@
                 "file": "test.md"
               }
             }
+          },
+          {
+            "id": "440e83c3936247d9",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {}
+            }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -155,7 +154,7 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "ef7178eca2c413ce",
+  "active": "13750b3638afd391",
   "lastOpenFiles": [
     "test.md"
   ]
