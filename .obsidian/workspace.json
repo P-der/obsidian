@@ -30,9 +30,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "4b42a0e6dc822be4",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "深入浅出Nodejs.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -98,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "SQL必知必会.md",
+                "file": "深入浅出Nodejs.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +127,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "SQL必知必会.md",
+                "file": "深入浅出Nodejs.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +150,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "SQL必知必会.md"
+                "file": "深入浅出Nodejs.md"
               }
             }
           },
@@ -168,10 +180,11 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "21ed0cdb5fe3ba59",
+  "active": "4b42a0e6dc822be4",
   "lastOpenFiles": [
-    "readme.md",
     "SQL必知必会.md",
+    "深入浅出Nodejs.md",
+    "readme.md",
     "读书笔记",
     "test.md"
   ]
