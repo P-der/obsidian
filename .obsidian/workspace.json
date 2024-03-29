@@ -30,9 +30,19 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "3464c8806f888804",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.5.11"
+              }
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -168,7 +178,7 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "8dd997936b4bac9a",
+  "active": "3464c8806f888804",
   "lastOpenFiles": [
     "readme.md",
     "读书笔记/SQL必知必会.md",
