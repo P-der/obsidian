@@ -35,9 +35,11 @@
             "id": "3464c8806f888804",
             "type": "leaf",
             "state": {
-              "type": "release-notes",
+              "type": "markdown",
               "state": {
-                "currentVersion": "1.5.11"
+                "file": "读书笔记/SQL必知必会.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -165,8 +167,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 312.5,
-    "collapsed": true
+    "width": 200
   },
   "left-ribbon": {
     "hiddenItems": {
