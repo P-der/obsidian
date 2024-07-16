@@ -90,11 +90,13 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 200,
+    "collapsed": true
   },
   "right": {
     "id": "6e98be620c7b0c1b",
@@ -179,8 +181,9 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "4b42a0e6dc822be4",
+  "active": "fdca9db482bd60f9",
   "lastOpenFiles": [
+    "Pasted image 20240716134620.png",
     "Pasted image 20240716134325.png",
     "Pasted image 20240716134218.png",
     "readme.md",
