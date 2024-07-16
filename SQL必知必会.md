@@ -11,6 +11,5 @@ vscode插件直接new query 添加
 ![[Pasted image 20240716134325.png]]
 点击`run` 即可执行
 # 记录
-
 - OR vs IN
 多条where语句时`IN` 性能更好
