@@ -15,4 +15,5 @@ vscode插件直接new query 添加
 多条where语句时`IN` 性能更好
  - like 匹配字符时需要注意数据库配置
 有的数据库存储字符串时会用空格进行部位，会导致`x%x` 匹配固定开头结尾的字符串失效，这时就需要用`x%x%` 匹配，但是这样就无法针对固定结尾的匹配了；更好的解决办法是用函数去掉空格
-- like 后面添加正则时，`postgresql` 不支持这种语法，`postgresql` 使用 `SIMILAR TO` 替换like 即可
+- like 后面添加正则时，`postgresql` 不支持全部这种语法（比如[ab]，这种情况下，无法匹配），`postgresql` 使用 `SIMILAR TO` 替换like 即可
+- 
