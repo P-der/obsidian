@@ -18,3 +18,4 @@ vscode插件直接new query 添加
 - like 后面添加正则时，`postgresql` 不支持全部这种语法（比如[ab]，这种情况下，无法匹配），`postgresql` 使用 `SIMILAR TO` 替换like 即可
 - 使用 `||` 做字符床拼接
 - 使用`select` 不加 from 可以做测试验证， eg: `select 3*2` 为 6
+- `SOUNDEX`  可以判断转换为读音，用来判断读音是否一致，但是psql不支持
