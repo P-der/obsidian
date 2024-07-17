@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "SQL必知必会.md",
+                "file": "SQL必知必会（使用psql学习）.md",
                 "mode": "source",
                 "source": false
               }
@@ -87,7 +87,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "SQL必知必会.md",
+                "file": "SQL必知必会（使用psql学习）.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "SQL必知必会.md",
+                "file": "SQL必知必会（使用psql学习）.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -127,7 +127,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "SQL必知必会.md"
+                "file": "SQL必知必会（使用psql学习）.md"
               }
             }
           },
@@ -159,7 +159,7 @@
   "active": "4b42a0e6dc822be4",
   "lastOpenFiles": [
     "readme.md",
-    "SQL必知必会.md",
+    "SQL必知必会（使用psql学习）.md",
     "Pasted image 20240716134620.png",
     "Pasted image 20240716134325.png",
     "Pasted image 20240716134218.png",
