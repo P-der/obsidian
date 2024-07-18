@@ -18,20 +18,8 @@
                 "source": false
               }
             }
-          },
-          {
-            "id": "7db76794ec710cef",
-            "type": "leaf",
-            "state": {
-              "type": "diff-view",
-              "state": {
-                "file": ".obsidian/workspace.json",
-                "staged": false
-              }
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -163,7 +151,7 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "7db76794ec710cef",
+  "active": "440e83c3936247d9",
   "lastOpenFiles": [
     "SQL必知必会（使用psql学习）.md",
     "深入浅出Nodejs.md",
