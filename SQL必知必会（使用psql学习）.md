@@ -20,3 +20,4 @@ vscode插件直接new query 添加
 - 使用`select` 不加 from 可以做测试验证， eg: `select 3*2` 为 6
 - `SOUNDEX`  可以判断转换为读音，用来判断读音是否一致，但是psql不支持
 - `where` vs `having` ; where 分组前过滤，having 分组后过滤
+- 子查询 如果写在select中需要返回一个值（需要固定或者聚合），如果写在in里可以返回一列值
