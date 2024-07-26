@@ -11,9 +11,11 @@
             "id": "7906236ba36ea47e",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "image/Pasted image 20240716134620.png"
+                "file": "SQL必知必会（使用psql学习）.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -83,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "image/Pasted image 20240716134620.png",
+                "file": "SQL必知必会（使用psql学习）.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -100,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "image/Pasted image 20240716134620.png",
+                "file": "SQL必知必会（使用psql学习）.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -123,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "image/Pasted image 20240716134620.png"
+                "file": "SQL必知必会（使用psql学习）.md"
               }
             }
           },
@@ -154,13 +156,13 @@
   },
   "active": "7906236ba36ea47e",
   "lastOpenFiles": [
+    "深入浅出Nodejs.md",
+    "readme.md",
+    "SQL必知必会（使用psql学习）.md",
+    "image/Pasted image 20240716134620.png",
     "image/Pasted image 20240716134325.png",
     "image/Pasted image 20240716134218.png",
-    "SQL必知必会（使用psql学习）.md",
     "image",
-    "readme.md",
-    "image/Pasted image 20240716134620.png",
-    "深入浅出Nodejs.md",
     "conflict-files-obsidian-git.md",
     "读书笔记",
     "test.md"
