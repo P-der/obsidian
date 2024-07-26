@@ -4,18 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "ad85ba05be3b4e61",
+        "id": "7c839b3aff253014",
         "type": "tabs",
         "children": [
           {
-            "id": "4b42a0e6dc822be4",
+            "id": "7906236ba36ea47e",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "image",
               "state": {
-                "file": "readme.md",
-                "mode": "source",
-                "source": false
+                "file": "image/Pasted image 20240716134620.png"
               }
             }
           }
@@ -85,7 +83,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "readme.md",
+                "file": "image/Pasted image 20240716134620.png",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +100,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "readme.md",
+                "file": "image/Pasted image 20240716134620.png",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +123,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "readme.md"
+                "file": "image/Pasted image 20240716134620.png"
               }
             }
           },
@@ -154,14 +152,15 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "4b42a0e6dc822be4",
+  "active": "7906236ba36ea47e",
   "lastOpenFiles": [
-    "Pasted image 20240716134620.png",
-    "Pasted image 20240716134325.png",
-    "Pasted image 20240716134218.png",
-    "深入浅出Nodejs.md",
-    "readme.md",
+    "image/Pasted image 20240716134325.png",
+    "image/Pasted image 20240716134218.png",
     "SQL必知必会（使用psql学习）.md",
+    "image",
+    "readme.md",
+    "image/Pasted image 20240716134620.png",
+    "深入浅出Nodejs.md",
     "conflict-files-obsidian-git.md",
     "读书笔记",
     "test.md"
