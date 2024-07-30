@@ -4,16 +4,18 @@
     "type": "split",
     "children": [
       {
-        "id": "7c839b3aff253014",
+        "id": "97bccc657d5ce41c",
         "type": "tabs",
         "children": [
           {
-            "id": "7906236ba36ea47e",
+            "id": "4b68adc291556486",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "image/Pasted image 20240716134620.png"
+                "file": "SQL必知必会（使用psql学习）.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -67,7 +69,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 312.5
+    "width": 300
   },
   "right": {
     "id": "6e98be620c7b0c1b",
@@ -83,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "image/Pasted image 20240716134620.png",
+                "file": "SQL必知必会（使用psql学习）.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -100,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "image/Pasted image 20240716134620.png",
+                "file": "SQL必知必会（使用psql学习）.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -123,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "image/Pasted image 20240716134620.png"
+                "file": "SQL必知必会（使用psql学习）.md"
               }
             }
           },
@@ -140,7 +142,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 312.5
+    "width": 245.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -152,16 +154,21 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "7906236ba36ea47e",
+  "active": "4b68adc291556486",
   "lastOpenFiles": [
+    "readme.md",
+    "深入浅出Nodejs.md",
+    "image/Pasted image 20240716134620.png",
     "image/Pasted image 20240716134325.png",
     "image/Pasted image 20240716134218.png",
-    "SQL必知必会（使用psql学习）.md",
     "image",
-    "readme.md",
-    "image/Pasted image 20240716134620.png",
-    "深入浅出Nodejs.md",
+    "SQL必知必会（使用psql学习）.md",
     "conflict-files-obsidian-git.md",
+    "SQL必知必会.md",
+    "Pasted image 20240716134620.png",
+    "Pasted image 20240716134325.png",
+    "Pasted image 20240716134218.png",
+    "读书笔记/SQL必知必会.md",
     "读书笔记",
     "test.md"
   ]
