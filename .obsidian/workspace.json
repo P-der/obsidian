@@ -18,8 +18,19 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "1a0cd113c03ae3a1",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.6.7"
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -154,7 +165,7 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "7906236ba36ea47e",
+  "active": "1a0cd113c03ae3a1",
   "lastOpenFiles": [
     "深入浅出Nodejs.md",
     "readme.md",
