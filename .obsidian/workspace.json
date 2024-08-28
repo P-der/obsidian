@@ -18,19 +18,8 @@
                 "source": false
               }
             }
-          },
-          {
-            "id": "1a0cd113c03ae3a1",
-            "type": "leaf",
-            "state": {
-              "type": "release-notes",
-              "state": {
-                "currentVersion": "1.6.7"
-              }
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -165,10 +154,10 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "1a0cd113c03ae3a1",
+  "active": "7906236ba36ea47e",
   "lastOpenFiles": [
-    "深入浅出Nodejs.md",
     "readme.md",
+    "深入浅出Nodejs.md",
     "SQL必知必会（使用psql学习）.md",
     "image/Pasted image 20240716134620.png",
     "image/Pasted image 20240716134325.png",
