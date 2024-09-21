@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "97bccc657d5ce41c",
+        "id": "d5c147a9c5ba67b4",
         "type": "tabs",
         "children": [
           {
-            "id": "4b68adc291556486",
+            "id": "8545c03262b8c30f",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -65,8 +65,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -155,15 +154,17 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "9661c904596336c8",
+  "active": "8545c03262b8c30f",
   "lastOpenFiles": [
+    "image.md",
+    "未命名.md",
+    "深入浅出Nodejs.md",
     "SQL必知必会（使用psql学习）.md",
+    "readme.md",
+    "baidu.com.md",
     "image/Pasted image 20240716134620.png",
     "image/Pasted image 20240716134325.png",
     "image/Pasted image 20240716134218.png",
-    "未命名.md",
-    "readme.md",
-    "深入浅出Nodejs.md",
     "image",
     "conflict-files-obsidian-git.md",
     "SQL必知必会.md",
