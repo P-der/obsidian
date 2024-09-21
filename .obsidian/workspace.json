@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "未命名.md",
+                "file": "深入浅出Nodejs.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "未命名.md",
+                "file": "深入浅出Nodejs.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "未命名.md",
+                "file": "深入浅出Nodejs.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "未命名.md"
+                "file": "深入浅出Nodejs.md"
               }
             }
           },
@@ -151,14 +151,13 @@
       "canvas:新建白板": false,
       "daily-notes:打开/创建今天的日记": false,
       "templates:插入模板": false,
-      "command-palette:打开命令面板": false,
-      "obsidian42-brat:BRAT": false
+      "command-palette:打开命令面板": false
     }
   },
   "active": "817355edd08367ad",
   "lastOpenFiles": [
-    "深入浅出Nodejs.md",
     "未命名.md",
+    "深入浅出Nodejs.md",
     "SQL必知必会（使用psql学习）.md",
     "readme.md",
     "image.md",
