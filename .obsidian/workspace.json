@@ -151,15 +151,16 @@
       "canvas:新建白板": false,
       "daily-notes:打开/创建今天的日记": false,
       "templates:插入模板": false,
-      "command-palette:打开命令面板": false
+      "command-palette:打开命令面板": false,
+      "obsidian42-brat:BRAT": false
     }
   },
   "active": "817355edd08367ad",
   "lastOpenFiles": [
-    "SQL必知必会（使用psql学习）.md",
-    "readme.md",
     "深入浅出Nodejs.md",
     "未命名.md",
+    "SQL必知必会（使用psql学习）.md",
+    "readme.md",
     "image.md",
     "baidu.com.md",
     "imge/Pasted.md",
