@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "SQL必知必会（使用psql学习）.md",
+                "file": "编程珠玑.md",
                 "mode": "source",
                 "source": false
               }
@@ -98,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "SQL必知必会（使用psql学习）.md",
+                "file": "编程珠玑.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "SQL必知必会（使用psql学习）.md",
+                "file": "编程珠玑.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "SQL必知必会（使用psql学习）.md"
+                "file": "编程珠玑.md"
               }
             }
           },
@@ -169,10 +169,10 @@
   },
   "active": "d1de8c48d423181e",
   "lastOpenFiles": [
+    "SQL必知必会（使用psql学习）.md",
     "readme.md",
     "深入浅出Nodejs.md",
     "编程珠玑.md",
-    "SQL必知必会（使用psql学习）.md",
     "image/Pasted image 20240716134620.png",
     "image/Pasted image 20240716134325.png",
     "image/Pasted image 20240716134218.png",
