@@ -18,8 +18,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "d1de8c48d423181e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "SQL必知必会（使用psql学习）.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -154,10 +167,11 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "7906236ba36ea47e",
+  "active": "d1de8c48d423181e",
   "lastOpenFiles": [
     "readme.md",
     "深入浅出Nodejs.md",
+    "编程珠玑.md",
     "SQL必知必会（使用psql学习）.md",
     "image/Pasted image 20240716134620.png",
     "image/Pasted image 20240716134325.png",
