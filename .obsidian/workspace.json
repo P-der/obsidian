@@ -11,11 +11,10 @@
             "id": "817355edd08367ad",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "diff-view",
               "state": {
-                "file": "深入浅出Nodejs.md",
-                "mode": "source",
-                "source": false
+                "file": ".obsidian/workspace.json",
+                "staged": false
               }
             }
           }
@@ -85,7 +84,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "深入浅出Nodejs.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +100,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "深入浅出Nodejs.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -124,9 +121,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "深入浅出Nodejs.md"
-              }
+              "state": {}
             }
           },
           {
@@ -138,7 +133,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -156,10 +151,10 @@
   },
   "active": "817355edd08367ad",
   "lastOpenFiles": [
+    "SQL必知必会（使用psql学习）.md",
     "readme.md",
     "深入浅出Nodejs.md",
     "未命名.md",
-    "SQL必知必会（使用psql学习）.md",
     "image.md",
     "baidu.com.md",
     "imge/Pasted.md",
