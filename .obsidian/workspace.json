@@ -11,10 +11,11 @@
             "id": "817355edd08367ad",
             "type": "leaf",
             "state": {
-              "type": "diff-view",
+              "type": "markdown",
               "state": {
-                "file": ".obsidian/workspace.json",
-                "staged": false
+                "file": "readme.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -84,6 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "readme.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -100,6 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "readme.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -121,7 +124,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "readme.md"
+              }
             }
           },
           {
@@ -151,9 +156,12 @@
   },
   "active": "817355edd08367ad",
   "lastOpenFiles": [
-    "SQL必知必会（使用psql学习）.md",
+    "conflict-files-obsidian-git.md",
     "readme.md",
+    "编程珠玑.md",
     "深入浅出Nodejs.md",
+    "cocos2d-x 学习.md",
+    "SQL必知必会（使用psql学习）.md",
     "未命名.md",
     "image.md",
     "baidu.com.md",
@@ -164,7 +172,6 @@
     "image/Pasted image 20240716134325.png",
     "image/Pasted image 20240716134218.png",
     "image",
-    "conflict-files-obsidian-git.md",
     "SQL必知必会.md",
     "Pasted image 20240716134620.png",
     "Pasted image 20240716134325.png",
