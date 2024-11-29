@@ -4,20 +4,20 @@
     "type": "split",
     "children": [
       {
-        "id": "dd0a31ffe53b5402",
+        "id": "50e6305d87b1dc90",
         "type": "tabs",
         "children": [
           {
-            "id": "fa04bd56e9b6b401",
+            "id": "ab0de1faf78a373a",
             "type": "leaf",
             "state": {
               "type": "diff-view",
               "state": {
-                "file": ".obsidian/workspace.json",
-                "staged": false
+                "file": ".obsidian/community-plugins.json",
+                "staged": true
               },
               "icon": "git-pull-request",
-              "title": "Diff View (workspace.json)"
+              "title": "Diff View (community-plugins.json)"
             }
           }
         ]
@@ -173,8 +173,9 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "fa04bd56e9b6b401",
+  "active": "ab0de1faf78a373a",
   "lastOpenFiles": [
+    "conflict-files-obsidian-git.md",
     "编程珠玑.md",
     "深入浅出Nodejs.md",
     "cocos2d-x 学习.md",
@@ -184,7 +185,6 @@
     "image/Pasted image 20240716134325.png",
     "image/Pasted image 20240716134218.png",
     "image",
-    "conflict-files-obsidian-git.md",
     "读书笔记",
     "test.md"
   ]

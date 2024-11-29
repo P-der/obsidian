@@ -1,3 +1,5 @@
 [
-  "obsidian-git"
+  "obsidian-git",
+  "obsidian-plugin-prettier",
+  "codeblock-customizer"
 ]
