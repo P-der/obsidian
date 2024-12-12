@@ -20,8 +20,21 @@
               "icon": "lucide-file",
               "title": "SQL必知必会（使用psql学习）"
             }
+          },
+          {
+            "id": "ae8c270835b17693",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.7.7"
+              },
+              "icon": "lucide-file",
+              "title": "Release Notes 1.7.7"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -172,7 +185,7 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "ab0de1faf78a373a",
+  "active": "ae8c270835b17693",
   "lastOpenFiles": [
     "readme.md",
     "conflict-files-obsidian-git.md",
