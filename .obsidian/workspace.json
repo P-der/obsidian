@@ -11,10 +11,12 @@
             "id": "272c79fb56e5af7b",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
-              "icon": "lucide-file",
-              "title": "新标签页"
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.12.7"
+              },
+              "icon": "lucide-book-up",
+              "title": "版本说明 1.12.7"
             }
           }
         ]
@@ -36,7 +38,8 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical"
+                "sortOrder": "alphabetical",
+                "autoReveal": false
               },
               "icon": "lucide-folder-closed",
               "title": "文件列表"
@@ -160,6 +163,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:新建数据库": false,
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
       "canvas:新建白板": false,
@@ -168,7 +172,7 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "440e83c3936247d9",
+  "active": "272c79fb56e5af7b",
   "lastOpenFiles": [
     "readme.md",
     "01-编程语言/cocos2d-x 学习.md",
