@@ -4,19 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "36507c707165a610",
+        "id": "437fde151239a18d",
         "type": "tabs",
         "children": [
           {
-            "id": "272c79fb56e5af7b",
+            "id": "74779cf9159306a0",
             "type": "leaf",
             "state": {
-              "type": "release-notes",
-              "state": {
-                "currentVersion": "1.12.7"
-              },
-              "icon": "lucide-book-up",
-              "title": "版本说明 1.12.7"
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "新标签页"
             }
           }
         ]
@@ -172,7 +170,7 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "272c79fb56e5af7b",
+  "active": "440e83c3936247d9",
   "lastOpenFiles": [
     "readme.md",
     "01-编程语言/cocos2d-x 学习.md",
