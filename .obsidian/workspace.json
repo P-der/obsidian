@@ -4,17 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "437fde151239a18d",
+        "id": "e0bf4bf264158fda",
         "type": "tabs",
         "children": [
           {
-            "id": "74779cf9159306a0",
+            "id": "d65c00afd484d774",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
                 "file": "05-工具效率/AI垂类业务场景与应用深度解析.md",
-                "mode": "preview",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
@@ -175,16 +175,17 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "74779cf9159306a0",
+  "active": "d65c00afd484d774",
   "lastOpenFiles": [
-    "05-工具效率/AI垂类业务场景与应用深度解析.md",
-    "readme.md",
     "01-编程语言/cocos2d-x 学习.md",
-    "Inbox/收集箱.md",
-    "SQL必知必会（使用psql学习）.md",
-    "04-读书笔记/编程珠玑.md",
     "01-编程语言/深入浅出Nodejs.md",
     "02-数据库/SQL必知必会（使用psql学习）.md",
+    "04-读书笔记/编程珠玑.md",
+    "05-工具效率/AI垂类业务场景与应用深度解析.md",
+    "未命名.base",
+    "readme.md",
+    "Inbox/收集箱.md",
+    "SQL必知必会（使用psql学习）.md",
     "Inbox",
     "05-工具效率",
     "04-读书笔记",
