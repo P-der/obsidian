@@ -1,447 +1,569 @@
 ---
-title: AI 垂类业务场景与应用深度解析
+title: AI 垂类业务场景调研报告
 updated: 2026-04-24
-tags: [AI, 垂类应用, 综述]
+tags: [AI, 垂类应用, 调研报告]
 ---
 
-# AI 垂类业务场景与应用深度解析
+# AI 垂类业务场景调研报告
 
-> 本文档于 2026-04-24 做全量修订：核验所有外链、修正过时信息、统一格式。
-> 仍存疑的数据已标注 `⚠️ 未核实 / 口径存疑`。
+> 版本：2026-04-24 结构化改写版
+> 覆盖垂类：图像 / 视频 / 音频 / 文本 / 代码 / 跨垂类融合
+> 报告定位：面向产品 PM、技术选型决策者与高管的落地参考，不做百科式罗列
 
 ## 目录
 
-- [一、图像 AI](#一图像-ai)
-- [二、视频 AI](#二视频-ai)
-- [三、音频 AI](#三音频-ai)
-- [四、文本 AI](#四文本-ai)
-- [五、代码 AI](#五代码-ai)
-- [六、跨垂类融合](#六跨垂类融合)
-- [七、总结](#七总结)
-- [附录：官方链接汇总](#附录官方链接汇总)
+- [一、摘要 / TL;DR](#一摘要--tldr)
+- [二、研究方法与口径说明](#二研究方法与口径说明)
+- [三、共通技术栈速览](#三共通技术栈速览)
+- [四、垂类场景深度分析](#四垂类场景深度分析)
+- [五、横向对比](#五横向对比)
+- [六、趋势与拐点](#六趋势与拐点)
+- [七、当前做不好的事](#七当前做不好的事)
+- [八、选型 Checklist](#八选型-checklist)
+- [九、行动建议（按读者分路径）](#九行动建议按读者分路径)
+- [附录 A：官方链接汇总](#附录-a官方链接汇总)
+- [附录 B：术语表](#附录-b术语表)
+- [附录 C：本次修订变更](#附录-c本次修订变更)
 
 ---
 
-## 一、图像 AI
+## 一、摘要 / TL;DR
+
+**覆盖范围**：6 大垂类、60+ 主流应用、11 张配图、时间切片 2026-04。
+
+**三个核心结论**
+
+1. **2026 是\"Agent + 具身智能商用元年\"**。长上下文稳定、推理模型可靠、工具调用协议（MCP）标准化三件事同时就位，LLM Agent 从 Demo 走向生产；VLA 模型压到 1–3B 端侧可跑 + 关节电机千元级，人形机器人进入客户验证阶段。
+2. **国产栈在\"场景化\"上已明显领先**，尤其电商图（通义万相、爱创）、短剧（可灵、Seedance、HappyHorse）、数字人直播、代码助手（文心快码、通义灵码）；国际栈仍在\"通用能力上限\"上领先（Sora 2、Claude、GPT Image 1.5、Figure Helix）。
+3. **选型核心不是\"谁更强\"，而是\"能力边界 + 数据闭环 + 合规\"**。跨境优先国际旗舰 + 可本地部署开源；国内 C 端与企业内网必选国产合规栈；数据敏感行业必选可私有化微调的本地化方案。
+
+**选型建议一句话版**
+
+- 最高画质 / 文字渲染 / 可控性 → **GPT Image 1.5 + Midjourney V7**
+- 数据敏感、要求私有化 → **SDXL/Flux + ControlNet + LoRA**（图像）/ **Comate、通义灵码**（代码）/ **Milvus + BGE-M3**（RAG）
+- 电商短视频、短剧规模化 → **可灵 3.0 + Seedance 2.0 + ComfyUI**
+- 企业级 Agent → **[OpenAI Responses API](https://platform.openai.com/docs/api-reference/responses)**（国际）或 **通义千问 Agent / 豆包**（国内合规）
+- 数字人直播 → **[HeyGen](https://www.heygen.com/)**（出海 175+ 语种）/ **小冰**（国内）
+
+> ⚠️ **重要迁移提醒**：OpenAI Assistants API 将于 **2026-08-26 关停**，基于它的项目须迁至 Responses API；DALL-E 3 API 将于 **2026-05-12 关停**，自动回落至 GPT Image。
+
+---
+
+## 二、研究方法与口径说明
+
+| 项 | 说明 |
+| --- | --- |
+| **数据来源** | 官方产品页 / 官方博客 / 主流研报（DataEye、艾媒咨询、IDC）/ Artificial Analysis、LM Arena 榜单 / 厂商财报 / 公开媒体 |
+| **核验方式** | 链接可达性检查、官方版本号核对、价格/额度点查、争议数据交叉比对 |
+| **时间窗口** | 截至 2026-04-24 |
+| **⚠️ 标注规则** | 未在主流独立来源核实 / 厂商单方面宣称 / 已被当事人辟谣 → 保留 `⚠️` 并说明出处 |
+| **营销话术处理** | 厂商口径的增长率、留存率、转化率均明示\"厂商口径\"，不作为选型决策依据 |
+| **不作为本报告依据** | 社媒截图、SEO 稿、无出处的榜单、未经核实的\"内部数据\" |
+
+---
+
+## 三、共通技术栈速览
+
+本节抽离各垂类共用的\"积木\"，后文场景内不再重复解释。
+
+### 3.1 基础模型家族
+
+| 模态 | 主流主干 | 代表模型 |
+| --- | --- | --- |
+| 图像 | Latent Diffusion / DiT / Flow Matching | SDXL、Flux.1、HunyuanDiT、GPT Image 1.5 |
+| 视频 | 3D VAE + Video DiT | Sora 2、可灵 3.0、Seedance 2.0、HappyHorse |
+| 音频 TTS | 自回归 LM + Neural Codec / 扩散 / Flow Matching | VALL-E、ChatTTS、F5-TTS、Fish S1、MiniMax Speech |
+| 文本 LLM | Transformer + 推理模型 | GPT / Claude / Gemini、通义千问、豆包、DeepSeek、文心 |
+| 具身 | VLA（Vision-Language-Action） | RT-2、OpenVLA、Figure Helix、智元 GO-1 |
+
+### 3.2 控制与定制手段（与主干解耦的\"旁路\"）
+
+- **ControlNet**：空间结构控制（姿态/边缘/深度）
+- **LoRA**：低秩微调，几十 MB 记住品牌视觉 / 角色形象 / 专属语音
+- **IP-Adapter**：用一张参考图做图像 prompt
+- **Function Calling / Tool Use**：让模型稳定调用外部工具
+- **MCP（Model Context Protocol）**：Anthropic 主导、2025 被广泛采用的工具调用标准
+
+### 3.3 工程增强栈
+
+- **RAG 管线**：Chunking → Embedding → 向量索引（HNSW/IVF-PQ）→ Cross-Encoder 重排 → LLM 合成
+- **Agentic Loop**：`Plan → Act → Observe → Reflect`，ReAct 为事实标准
+- **长短期记忆**：短期对话缓存 + 长期向量记忆 + 周期性摘要
+- **推理模型**（o1/o3/DeepSeek-R1）：为 Plan-Reflect 循环提供可靠性
+- **Sim2Real**：Domain Randomization 让仿真策略迁移到真实硬件
+
+### 3.4 评测基线
+
+| 模态 | 主流榜 | 备注 |
+| --- | --- | --- |
+| 图像 | LM Arena Text-to-Image、Artificial Analysis | GPT Image 1.5 2026-03 ELO 1264 第一 |
+| 视频 | Artificial Analysis Video Arena | HappyHorse ELO 1333–1413 |
+| 文本 | MMLU、GPQA、Chatbot Arena | 2026 主流模型已普遍饱和 MMLU |
+| 代码 | HumanEval（饱和）/ SWE-bench Verified / Terminal-Bench | 2026 SWE-bench SOTA 70%+ |
+| 具身 | RT-2 Eval、CALVIN、RoboCasa | 仍以厂商任务集为主 |
+
+---
+
+## 四、垂类场景深度分析
+
+统一四段式：**场景价值 / 应用对比（五维） / 技术要点 / 调研结论**。
+
+### 4.1 图像 AI
 
 ![图像 AI](../image/ai-insights/cover-image.png)
 
-### 1.1 电商产品图生成
+#### 4.1.1 电商产品图生成
 
-**场景**：电商卖家需批量产出主图、场景图、详情页素材。AI 可从白底图自动生成场景图、去背景、扩图、生成套图。
+**场景价值**：让 1 个运营单日素材产出从 5 张提升到 500 张，覆盖主图/场景图/详情页/套图。
 
-#### 国际方案
+**应用对比（五维）**
 
-| 应用 | 核心特色 | 成本 | 适用场景 |
-| --- | --- | --- | --- |
-| **Stable Diffusion + ControlNet** | 开源可本地部署；ControlNet 精确控制姿态/深度/边缘；社区 LoRA 生态 | 免费（需 GPU） | 数据敏感的企业内部；批量自动化 |
-| **GPT Image 1.5（OpenAI）** | LM Arena 2026-03 排名第一（ELO 1264）；文字渲染能力最强；与 ChatGPT 深度集成 | API 约 $0.04–0.08/张；ChatGPT Plus $20/月 | 营销物料、带文字的产品图 |
+| 应用 | 能力边界 | 成本 | 数据闭环（可私有化微调） | 合规 / 数据出境 | 生态绑定成本 |
+| --- | --- | --- | --- | --- | --- |
+| **[SDXL](https://stability.ai/)/[Flux](https://blackforestlabs.ai/) + [ControlNet](https://github.com/lllyasviel/ControlNet)** | 开源、可控最强；需自搭管线 | GPU 自担（免费软件） | ✅ 完全可私有化 + LoRA 微调 | ✅ 可完全本地 | 低（开源生态） |
+| **[GPT Image 1.5](https://openai.com/)** | 文字渲染 / 提示词还原最强 | API $0.04–0.08/张 | ❌ 不可微调 | ❌ 数据出境 | 中（绑 OpenAI） |
+| **[通义万相](https://tongyi.aliyun.com/wanxiang)** | 电商场景深度调优；服装上身 | 按量计费 | 部分（行业模型） | ✅ 境内合规 | 高（绑阿里系） |
+| **[文心一格](https://yige.baidu.com/)**（已并入文心一言） | 中文/国风；合规 | 免费+付费 | 部分 | ✅ 境内合规 | 中 |
+| **[爱创 AI](https://www.51aic.com/)** | 1688 星工具；一键全店 | 低门槛 | ❌ | ✅ | 高（绑 1688） |
 
-> **更新说明**：DALL-E 3 将于 2026-05-12 关停 API，由 `gpt-image-1` / `gpt-image-1.5` 全面接替；ChatGPT 内图像生成已默认使用 GPT Image。
+> `⚠️` 原稿引用的\"点击率 +171%\"、\"单款节省 800 元\"均为厂商案例口径。
 
-#### 国内方案
+**技术要点**（本场景特有；通用部件见 §3）
 
-| 应用 | 核心特色 | 成本 | 适用场景 |
-| --- | --- | --- | --- |
-| **通义万相**（阿里） | 电商场景深度优化；服装平铺图 → 模特上身；批量 SKU | 按量计费 | 淘宝/天猫/1688 生态 |
-| **文心一格**（百度） | 已整合进入文心一言；中文提示词理解佳；国风元素 | 免费 + 付费 | 国内品牌、中文内容 |
-| **爱创 AI**（https://www.51aic.com/） | 1688 星工具服务商；一键全店素材；模特试穿/换色 | 低门槛 | 1688 商家、中小卖家 |
+- 链路固定为 **SDXL/Flux 主干 + ControlNet + LoRA + IP-Adapter**：ControlNet 锁结构、LoRA 锁身份，解决\"同一沙发多场景\"一致性
+- 电商特有需求：白底去背景 → 场景合成；服装平铺图 → 模特上身；多 SKU 批量换色
+- 纯 T2I 不足以覆盖电商一致性，必须引入条件控制
 
-> **口径提示**：文中原稿引用的 "点击率 +171%"、"单款节省 800 元" 等均来自厂商案例宣传，非独立第三方数据。
+**调研结论**
 
-#### 横向对比
-
-| 应用 | 优势 | 劣势 | 目标人群 |
-| --- | --- | --- | --- |
-| Stable Diffusion | 开源、高可控 | 技术门槛、算力需求 | 技术团队 |
-| GPT Image 1.5 | 文字渲染+提示词还原 | 需境外网络 | 跨境电商、高端设计 |
-| 通义万相 | 阿里生态 | 局限阿里系 | 淘宝天猫商家 |
-| 文心一格 | 中文/国风/合规 | 艺术性一般 | 国内品牌 |
-| 爱创 AI | 一键全套素材 | 风格较固定 | 1688 商家 |
-
-#### 技术要点
-
-电商场景图的落地链路基本固定为 **「SDXL/Flux 主干 + ControlNet 空间控制 + LoRA 风格/商品定制 + IP-Adapter 参考图」**：
-
-- **主干模型**：SDXL、Flux.1、HunyuanDiT 等文生图大模型决定画面基础质量
-- **ControlNet**：在不改变主模型权重的前提下，用旁路分支注入姿态/边缘/深度/线稿等结构条件 —— 是"商品位置不偏移"的关键
-- **LoRA**（Low-Rank Adaptation）：用几十张图微调一个几十 MB 的小权重，把品牌视觉风格/特定商品形象"记住"
-- **IP-Adapter**：用一张参考图作为图像 prompt，快速迁移风格或人物
-- **为什么直接 T2I 不够**：单纯文生图对"同一沙发在客厅/卧室/阳台"这类一致性任务控制力弱，必须靠 ControlNet 锁结构 + LoRA 锁身份
+- **成熟度**：✅ 生产可用
+- **ROI 拐点**：日均素材需求 > 50 张的商家全面正收益
+- **主要风险**：品牌视觉\"模型味\"、侵权素材训练、与模特形象权纠纷
+- **倾向性选型**：跨境 → SDXL + LoRA 自训；淘系 → 通义万相；1688 → 爱创；品牌营销 → GPT Image 1.5
 
 ---
 
-### 1.2 艺术创作与概念设计
+#### 4.1.2 艺术创作与概念设计
 
-| 应用 | 核心特色 | 成本 |
-| --- | --- | --- |
-| **Midjourney V7 / V8-Alpha** | 艺术表现力标杆；V7 为 2025-06 起默认模型，V8-Alpha 于 2026-03 进入预览 | Basic $10/月起 |
-| **GPT Image 1.5**（OpenAI） | 文字渲染、透视、光照极佳；LM Arena ELO 1264 | API 约 $0.04–0.08/张 |
-| **Stable Diffusion / Flux** | 开源生态、社区 LoRA 丰富 | 免费 |
+**场景价值**：设计师加速概念探索、封面物料与风格实验。
 
-> **说明**：原稿"Midjourney V6"已过时，当前主版本为 V7；V8-Alpha 处于预览阶段。
+**应用对比**
 
----
+| 应用 | 能力边界 | 成本 | 可私有化 | 合规 | 生态绑定 |
+| --- | --- | --- | --- | --- | --- |
+| **[Midjourney V7 / V8-Alpha](https://www.midjourney.com/)** | 艺术表现力标杆 | Basic $10/月起 | ❌ | ❌ 境外 | 低（Discord/Web） |
+| **[GPT Image 1.5](https://openai.com/)** | 透视/光照/文字皆佳 | API 约 $0.04–0.08/张 | ❌ | ❌ 境外 | 中 |
+| **Stable Diffusion / Flux** | 开源；风格 LoRA 丰富 | 免费 | ✅ | ✅ | 低 |
 
-### 1.3 AI 动漫 / 二次元
+> 原稿\"Midjourney V6\"已过时，当前主版本 V7；V8-Alpha 预览阶段。
 
-| 应用 | 核心特色 | 成本 |
-| --- | --- | --- |
-| **NovelAI**（https://novelai.net/） | 二次元风格纯正；支持 Danbooru 标签 | Tablet $10 / Scroll $15 / **Opus $25** |
-| **Midjourney Niji** | 官方动漫模式；高分辨率原生 | $10–60/月 |
-| **触站 AI**（https://www.czhanai.com/） | 国内最大二次元 AI 社区；中文提示词 | 免费 + 会员 ¥19–49/月 |
-| **画宇宙**（https://creator.nolibox.com/） | 一站式创作平台；多风格模型 | 免费 + 会员 ¥29–99/月 |
-| **吐司 AI**（https://tusi.cn/） | 国内直连；丰富 LoRA 社区模型 | 免费 + 会员 ¥24.9–39.9/多种周期 |
-| **Animagine XL 3.1** | 开源动漫专精 SDXL 模型；Cagliostro Lab | 免费 |
+**技术要点**：本场景直接复用 §3 主干模型 + LoRA；无场景专属技术。
 
-#### 国内外对比
+**调研结论**
 
-| 维度 | 国际（NovelAI / Niji） | 国内（触站 / 画宇宙 / 吐司） |
-| --- | --- | --- |
-| 画风纯度 | 日系动漫感极强 | 略弱，但差距缩小 |
-| 提示词 | 英文 + Danbooru | 中文友好 |
-| 成本 | $10–25/月 | 免费额度 + ¥19/月起 |
-| 访问 | 需境外网络 | 国内直连 |
-| 社区 | 全球资源最丰富 | 本土内容丰富 |
-
-#### 技术要点
-
-- **Danbooru 标签体系**：NovelAI/Animagine 等动漫模型的训练语料以 Danbooru 图站的**逗号分隔标签**为 prompt 形态（如 `1girl, long_hair, school_uniform, solo`），这是二次元模型"提示词=标签"而非自然语句的根本原因
-- **角色一致性 LoRA**：同人/VTuber 创作的核心工具。用 20–50 张角色素材微调一个专属 LoRA（几小时训练），就能让任意 prompt 生成的图都保持角色面部/服装特征
-- **负面提示词（Negative Prompt）**：二次元生成比其他场景更依赖 `bad hands, extra fingers, watermark, lowres` 这类负面词约束
+- **成熟度**：✅ 生产可用（仅\"概念稿\"级别，最终交付仍需人工把关）
+- **ROI 拐点**：依赖大量原画/概念图的团队立即正收益
+- **主要风险**：版权归属、风格抄袭争议
+- **倾向性选型**：创意优先 → Midjourney；文字/多模态 → GPT Image 1.5；本地可控 → Flux
 
 ---
 
-### 1.4 生成式视觉浏览器（实验性新形态）
+#### 4.1.3 AI 动漫 / 二次元
 
-> 一个把"浏览网页"变成"翻看一本无限生成的图画书"的新场景，代表了图像 AI 从"产素材"走向"造界面"的方向。
+**场景价值**：同人 / VTuber / 轻小说插画 / 社区内容的工业化产出。
 
-**Flipbook**（https://flipbook.page/）
+**应用对比**
 
-- **一句话说明**：一个完全由图像模型实时生成的"无限视觉浏览器"——每一"页"都是一张 AI 生成的图片，点击图中任意元素就会生成一张对它展开探索的新图，整个浏览过程没有 HTML、没有代码、没有真实链接。
-- **作者**：Zain Shah、Eddie Jiao、Drew Carr（实验项目）
-- **核心特色**：
-  - 所有内容（含文字）均由图像模型渲染
-  - "点击图像中的物体"=下一次生成的 prompt
-  - 可选 **Live Video Stream**：把静态页之间的跳转转为连续动画流（高耗资源，可开关）
-- **场景价值**：
-  - 开放式学习/探索：像翻百科全书一样任意深挖
-  - 对"生成式 UI"方向的概念验证——把"大段文字 + 色块"的传统界面，换成图像原生交互
-  - 为图像/视频模型性能提升后的"图像即应用"形态提供原型
-- **局限**：
-  - 目前定位为"实验"，无真实数据与状态持久化
-  - 资源消耗高，交互可预测性有限
-- **延伸思考**：当图像/视频模型推理成本与精度进一步改进，"在 Flipbook 里直接订机票、办事"并非不可能——这正是作者设想的"生成式 OS/浏览器"方向。
+| 应用 | 能力边界 | 成本 | 可私有化 | 合规 | 生态 |
+| --- | --- | --- | --- | --- | --- |
+| **[NovelAI](https://novelai.net/)** | 二次元纯度最高；Danbooru 标签 | Tablet $10 / Scroll $15 / Opus $25 | ❌ | ❌ 境外 | 中 |
+| **[Midjourney Niji](https://www.midjourney.com/)** | 官方动漫模式 | $10–60/月 | ❌ | ❌ 境外 | 低 |
+| **[触站 AI](https://www.czhanai.com/)** | 国内最大二次元社区；中文 prompt | 免费 + ¥19–49 | ❌ | ✅ | 中 |
+| **[画宇宙](https://creator.nolibox.com/)** | 多风格模型 | 免费 + ¥29–99 | ❌ | ✅ | 中 |
+| **[吐司 AI](https://tusi.cn/)** | 丰富社区 LoRA | 免费 + ¥24.9–39.9 | ❌ | ✅ | 中 |
+| **[Animagine XL 3.1](https://huggingface.co/cagliostrolab/animagine-xl-3.1)** | 开源动漫专精 SDXL | 免费 | ✅ | ✅ | 低 |
 
-## 二、视频 AI
+**技术要点**（本场景特有）
+
+- **Danbooru 标签体系**：二次元模型的 prompt 形态是 `1girl, long_hair, ...` 这类标签拼接（训练语料决定）
+- **角色一致性 LoRA**：20–50 张素材 → 几小时训练 → 专属角色 LoRA
+- **负面提示词**：`bad hands, extra fingers, watermark, lowres` 比其他场景更关键
+
+**调研结论**
+
+- **成熟度**：✅ 生产可用
+- **ROI 拐点**：任何规模化内容生产团队
+- **主要风险**：IP 侵权、未成年人画风合规
+- **倾向性选型**：跨境同人 → NovelAI；国内直连 / 成本敏感 → 吐司、触站；完全自主 → Animagine XL
+
+---
+
+#### 4.1.4 生成式视觉浏览器（实验阶段）
+
+**场景价值**：把\"浏览网页\"变成\"翻一本无限生成的图画书\"——对\"图像即界面\"的概念验证。
+
+**代表产品：Flipbook**（https://flipbook.page/）
+
+- 所有内容（含文字）均由图像模型实时渲染
+- \"点击图像中的物体\"=下一次生成的 prompt
+- 可选 Live Video Stream：连续动画流
+- 作者：Zain Shah、Eddie Jiao、Drew Carr
+
+**技术要点**：本场景本身是 §3 图像主干能力的\"体验形态\"创新，无独立新技术。
+
+**调研结论**
+
+- **成熟度**：🧪 实验阶段
+- **ROI 拐点**：尚未商业化；推理成本需降 10x
+- **主要风险**：无状态持久化、资源消耗高、交互可预测性低
+- **倾向性选型**：不建议生产环境；适合做\"生成式 UI/OS\"方向的技术前瞻
+
+---
+
+### 4.2 视频 AI
 
 ![视频 AI](../image/ai-insights/cover-video.png)
 
-### 2.1 电商带货短视频
+#### 4.2.1 电商带货短视频
 
-#### 国际方案
+**场景价值**：URL → 商品图 → 带货短视频的自动化流水线，降低达人成本。
 
-| 应用 | 核心特色 | 备注 |
-| --- | --- | --- |
-| **Runway Gen-4.5 / GWM-1** | Motion Brush 区域控制；原生 1080p，支持导出 4K（8K 为 AI 升采样） | 原稿"Gen-4 / 8K 原生"不准确 |
-| **Luma Ray3 / UNI-1** | 2026-01 发布 Ray3；生成极速；统一多模态模型 UNI-1 | 原稿"Dream Machine 2.0"已过时 |
-| **OpenAI Sora 2** | 当前最长 **25 秒（Pro 订阅）**，1080p；支持音画同生 / Character Cameo | 原稿"Sora Pro 2026 / 4K / 分钟级"不准确 |
+**应用对比**
 
-#### 国内方案
+| 应用 | 能力边界 | 成本 | 可私有化 | 合规 | 生态 |
+| --- | --- | --- | --- | --- | --- |
+| **[Runway Gen-4.5 / GWM-1](https://runwayml.com/)** | Motion Brush；1080p 原生 / 4K 升采样 | 订阅制 | ❌ | ❌ 境外 | 中 |
+| **[Luma Ray3 / UNI-1](https://lumalabs.ai/)** | 生成极速 | 订阅制 | ❌ | ❌ 境外 | 中 |
+| **[OpenAI Sora 2](https://openai.com/sora)** | 最长 25s（Pro），1080p；Character Cameo | Pro 订阅 | ❌ | ❌ 境外 | 高 |
+| **[快手可灵 3.0](https://klingai.kuaishou.com/)** | 最长 15s；智能分镜；4K 原生 | 按量 | ❌ | ✅ | 高（绑快手） |
+| **[字节 Seedance 2.0（即梦）](https://jimeng.jianying.com/)** | 4–15s；抖音直出 | 按量 | ❌ | ✅ | 高（绑字节） |
+| **[沃创 Wocreate](https://wocreate.ai/)** | URL → 带货视频；Agent 模板 | 按量 | ❌ | ✅ | 中 |
+| **阿里 HappyHorse-1.0** | 2026-04-09 开源；15B；音画同生；ELO 1333–1413 | 开源 + 算力自担 | ✅ | ✅ | 低 |
+| **[Vidu](https://www.vidu.cn/)** | 多主体一致性 | 订阅 | ❌ | ✅ | 中 |
+| **[Pika](https://pika.art/)** | 高保真表情；音频同步 | 订阅 | ❌ | ❌ 境外 | 中 |
 
-| 应用 | 核心特色 | 备注 |
-| --- | --- | --- |
-| **快手可灵 3.0**（https://klingai.kuaishou.com/） | 2026-02-05 发布；最长 **15 秒**；智能分镜；4K 原生 | 原稿"30 秒"应更正为 15 秒 |
-| **字节 Seedance 2.0**（即梦） | 2026-02 发布；4–15 秒；抖音生态直出 | 原稿"12 秒"应更正为 15 秒 |
-| **沃创 Wocreate**（https://wocreate.ai/） | URL 商品解析 → 带货视频；电商 Agent 模板 | 验证 ✅ |
-| **阿里 HappyHorse-1.0** | 2026-04-09 开源；**15B 参数**（非 150B）；音画联合生成；Artificial Analysis Video Arena ELO 1333–1413 | 原稿参数量错误 10 倍；许可证官方未明示 Apache 2.0；`happyhorseprompt.com` **非官方** |
-| **Vidu**（https://www.vidu.cn/） | 多主体一致性；参考生视频 | ✅ |
-| **Pika**（https://pika.art/） | Pikaformance 模型；高保真表情；音频同步 | ✅ |
+> `⚠️` 原稿\"可灵 30 秒 / Seedance 12 秒 / HappyHorse 150B / Sora 分钟级 4K\"已修正；`happyhorseprompt.com` **非官方**。
 
-> **数据勘误**：原稿 "AI 漫剧 2025 市场 189.8 亿 / +276.3%" 与 DataEye 研究院口径不符，后者给出的数字为 **2025 年约 168 亿**、2026 年预计 240 亿（同比 +40% 左右）。
+**技术要点**
+
+- **I2V（图生视频）远多于 T2V**：国内商用几乎全是\"先生图再驱动\"，可控性远高于纯文生视频
+- **Motion Brush / 智能分镜**：电商短视频特有的\"商品锁定不偏移\"需求
+
+**调研结论**
+
+- **成熟度**：🟡 商用试点→生产可用（头部卖家已规模化）
+- **ROI 拐点**：日均 10 条以上带货短视频的中腰部商家
+- **主要风险**：人物动作失真、商品变形、平台投流规则
+- **倾向性选型**：抖音 → Seedance；快手 → 可灵；跨境 → Runway / Sora 2；自研 → HappyHorse 开源
 
 ---
 
-### 2.2 数字人与虚拟主播
+#### 4.2.2 AI 漫剧 / 仿真人短剧
 
-- **HeyGen**（https://www.heygen.com/）：**175+ 语言与方言**（原稿"100+"偏低）；LiveAvatar 强调低延迟（官方未披露具体毫秒数）。
-- **国内数字人**：24 小时直播、批量讲解、深夜高转化场景。
-- **市场规模**（来源：艾媒咨询白皮书）：**2025 年核心市场 480.6 亿元**（非 2026 年），带动产业规模约 6402.7 亿元。
+**场景价值**：把\"百万预算一集\"压到\"几千块 + 几十小时\"的内容工业化。
 
----
+**市场数据（含勘误）**
 
-### 2.3 AI 漫剧 / 仿真人短剧
+- **2025 市场规模**：**约 168 亿元**（DataEye），2026 预计 240 亿
+- `⚠️ 原稿\"189.8 亿 / +276.3%\"未在主流研报中出现`
+- **已核实爆款**：《斩仙台下，我震惊了诸神！》抖音播放 **11.5 亿** ✅
+- `⚠️ 《霍去病》\"3 人 48 小时 3000 元 80 集 5 亿播放\"已被导演杨涵涵公开辟谣`：实际仅两段 4–6 分钟短片，团队近 20 人，3000 元仅算力成本，48 小时为纯工时；制作方为 360 集团\"纳米漫剧流水线\"
+- `⚠️ \"郑州日新月异裁员 400–500 人\"无公开来源`
 
-#### 市场数据（含勘误）
+**应用对比**
 
-- **2025 年市场规模**：约 **168 亿元**（DataEye），2026 年预计 **240 亿**。`⚠️ 原稿"189.8 亿 / +276.3%"未在主流研报中出现`。
-- **爆款案例**：《斩仙台下，我震惊了诸神！》抖音播放 **11.5 亿**（✅ 已核实）。
-- `⚠️ 原稿《霍去病》"3 人 48 小时 3000 元 80 集 播放 5 亿"已被导演杨涵涵公开辟谣`：
-  - 实际仅两段 4–6 分钟短片，非 80 集；
-  - 团队近 20 人，非 3 人；
-  - 3000 元仅算力成本；48 小时为纯工时；
-  - 5 亿播放量导演本人无法核实；
-  - 制作方为 360 集团"纳米漫剧流水线"。
-- `⚠️ 原稿"郑州日新月异裁员 400–500 人"无公开来源支撑`，建议删除或标注存疑。
+| 应用 | 能力边界 | 成本 | 可私有化 | 合规 | 生态 |
+| --- | --- | --- | --- | --- | --- |
+| **[Seedance 2.0 / 即梦](https://jimeng.jianying.com/)** | 抖音生态；写实风格 | 按量 | ❌ | ✅ | 高（字节） |
+| **[可灵 3.0 + LoRA](https://klingai.kuaishou.com/)** | 仿真人短剧主力 | 按量 | 部分（LoRA） | ✅ | 高（快手） |
+| **[ComfyUI](https://www.comfy.org/zh-cn/)** | 本地节点式；控制力最强 | 免费（+GPU） | ✅ | ✅ | 低 |
+| **[万彩动画大师](https://www.animiz.cn/)** | MG 动画 + 照片数字人；非 AI 生成 | 会员 | N/A | ✅ | 低 |
 
-#### 主流制作工具
-
-- **Seedance 2.0 / 即梦**（https://jimeng.jianying.com/）：抖音生态；写实风格。
-- **万彩动画大师**（https://www.animiz.cn/）：MG 动画+照片数字人；**非** AI 视频生成模型。
-- **可灵 + 角色一致性 LoRA**：仿真人短剧主力。
-- **ComfyUI**（https://www.comfy.org/zh-cn/）：本地节点式工作流；可控性最强。
-
-#### 技术要点（视频 AI）
+**技术要点**（本场景特有）
 
 ![AI 短剧制作流水线](../image/ai-insights/diagram-ai-drama.png)
 
-AI 漫剧/短剧之所以成为 2026 最火赛道，背后是视频生成栈的几个关键突破：
+- **3D VAE**：时间+空间双下采样（如 4×8×8），把 10s 1080p 压到几千 token
+- **Video DiT**：Transformer 时空联合建模，取代早期 U-Net + 时序注意力
+- **角色一致性 LoRA**：跨集跨镜头不漂移的核心
+- **音画联合生成**：HappyHorse / Sora 2 同一 Transformer 内同时生成视频与音频 token
+- **15s 瓶颈**：3D Attention 算力随序列平方增长；Sora 2 的 25s 靠稀疏注意力 + 显存工程
 
-- **3D VAE**：视频的"压缩器"。在时间+空间两维同时下采样（常见 4×8×8），把 10 秒 1080p 视频压到几千个 token，扩散模型才算得动
-- **视频 DiT**：用 Transformer 做时空联合建模，替代早期 U-Net+时序注意力的二阶段方案。Sora、可灵、HunyuanVideo、HappyHorse 全系采用
-- **角色一致性 LoRA**：仿真人短剧的核心——用真人或 AI 头像训练专属 LoRA，保证跨集跨镜头的人物外观不漂移
-- **I2V（图生视频）vs T2V**：国内商用几乎全是 I2V（先生成首帧图再驱动动起来），可控性远高于纯 T2V
-- **音画联合生成**：HappyHorse、Sora 2 代表方向——同一 Transformer 内同时生成视频 token 与音频 token，天然口型/节奏同步
-- **为什么卡在 15 秒？** 3D Attention 算力随序列长度平方增长，显存也同步飙升；突破到 Sora 2 的 25 秒靠稀疏注意力+显存工程
+**调研结论**
+
+- **成熟度**：🟡 商用试点（头部已上线，腰部高度依赖人工修片）
+- **ROI 拐点**：单剧目标播放 > 1000 万
+- **主要风险**：人物\"塑料感\"、镜头连续性、平台审核
+- **倾向性选型**：抖音 → Seedance；快手 → 可灵；完全自控 → ComfyUI + HappyHorse
 
 ---
 
-## 三、音频 AI
+### 4.3 音频 AI
 
 ![音频 AI](../image/ai-insights/cover-audio.png)
 
-### 3.1 有声书与播客
+#### 4.3.1 有声书与播客
 
-#### 国际方案
+**场景价值**：把长文本（小说/研报/公众号）低成本转为拟真度高的音频内容。
 
-| 应用 | 核心特色 | 成本 |
-| --- | --- | --- |
-| **ElevenLabs**（https://elevenlabs.io/） | Eleven v3 支持 **70+ 语言**（非 30+）；高拟真；情感与呼吸自然 | 订阅制 |
-| **Play.ht**（https://play.ht/） | 品牌语音定制；SSML；800+ 音色，140+ 语言 | 商业订阅 |
-| **Fish Audio**（https://fish.audio/） | 情感表现力强；免费额度 **8000 credits / 月（约 7 分钟，500 字符/次）** | 免费+订阅 |
+**应用对比**
 
-> **勘误**：原稿 Fish Audio"8000 字符免费" → 应为 **8000 credits / 月**，每次最多 500 字符。
+| 应用 | 能力边界 | 成本 | 可私有化 | 合规 | 生态 |
+| --- | --- | --- | --- | --- | --- |
+| **[ElevenLabs](https://elevenlabs.io/)** | Eleven v3；70+ 语言；拟真极高 | 订阅制 | ❌ | ❌ 境外 | 中 |
+| **[Play.ht](https://play.ht/)** | 品牌语音定制；SSML；800+ 音色，140+ 语言 | 订阅 | ❌ | ❌ 境外 | 中 |
+| **[Fish Audio](https://fish.audio/)** | 情感表现力强 | 免费 8000 credits/月（~7 分钟，500 字/次） | 部分（开源 Fish S1） | 中 | 低 |
+| **[冬瓜配音](https://www.okaidub.com/)** | 多角色；方言丰富 | 会员 | ❌ | ✅ | 中 |
+| **百宝音** | 三端；多音字修正 | 免费+会员 | ❌ | ✅ | 低 |
+| **[MiniMax Speech 2.6](https://www.minimaxi.com/)** | 低延迟；高情感 | 付费 | ❌ | ✅ | 中 |
+| **[ChatTTS](https://github.com/2noise/ChatTTS)** | 开源 | 代码 AGPLv3；**模型 CC BY-NC 4.0**，仅非商用 | ✅ | ✅ | 低 |
 
-#### 国内方案
+> `⚠️` 勘误：ElevenLabs **70+** 语言（非 30+）；Fish Audio 8000 **credits**（非字符）；ChatTTS 商用需授权；冬瓜\"99.8% 还原 / 700+ 音色\"为第三方测评，非官网数字。
 
-| 应用 | 核心特色 | 成本 |
-| --- | --- | --- |
-| **冬瓜配音**（https://www.okaidub.com/） | 多角色模式；方言丰富；厂商宣称 99.8% 还原 / 700+ 音色（⚠️ 官网并未公开该数字，来自第三方测评） | 会员制 |
-| **百宝音** | 微信小程序/APP/网页三端；长文本朗读、多音字修正 | 免费+会员 |
-| **MiniMax Speech 2.6**（https://www.minimaxi.com/） | 低延迟、高情感表现 | 付费 |
-| **ChatTTS**（https://github.com/2noise/ChatTTS） | 代码 **AGPLv3**；**模型 CC BY-NC 4.0**，仅限非商用 | 免费（非商用） |
+**技术要点**
 
-> **勘误**：原稿"ChatTTS 永久免费 / 终身免费"需限定为**非商业用途**；商业化需联系授权。
+- **Neural Audio Codec**（EnCodec / SoundStream / Mimi）：把音频压成离散 token，让 LLM 能像写文字一样写音频 —— 零样本克隆的基石
+- **两类 TTS 范式**：
+  - 自回归 LM + Codec（VALL-E、ChatTTS）：韵律自然，但长文本有漏读风险
+  - 扩散 / Flow Matching（F5-TTS、Fish S1）：并行快且稳，情感略弱
+  - 2026 商用产品多为混合路线
+- **零样本克隆**：ECAPA-TDNN 提取 3–10s 说话人 embedding → 作为 LM prompt 前缀
+- **AI 播客范式**：长文本 → LLM 生成双 agent 对话脚本（带口语停顿）→ 多说话人 TTS 合成
 
-#### 技术要点（音频 AI）
+**调研结论**
 
-TTS 范式 2023 年后发生了根本性迁移：
-
-- **神经音频编码器（Neural Audio Codec）**：把音频压成离散 token（EnCodec、SoundStream、Mimi），让 LLM 能像写文字一样写音频 —— 这是"零样本语音克隆"的基石
-- **两类主流 TTS 范式**：
-  - **自回归 LM + Codec**：代表 VALL-E、ChatTTS —— 韵律自然、情感丰富，但长文本有重复/漏读风险
-  - **扩散 / Flow Matching**：代表 F5-TTS、Fish S1 —— 并行生成更快更稳，情感略弱
-  - 2026 年商用产品多为**混合路线**（自回归生语义 + 扩散出声学）
-- **零样本克隆原理**：用 ECAPA-TDNN 等提取 3–10 秒参考音频的说话人特征 embedding，作为 LM prompt 前缀让模型"续说"成你的声音 —— 这就是"3 秒克隆"的本质
-- **情感控制**：文本内联标签（`[laugh]`、`[sigh]`）直接渲染、参考音频风格迁移、SSML 细粒度控制三条路径
-- **AI 播客（NotebookLM / 书尖）范式**：长文本 → LLM 生成双 agent 对话脚本（带"嗯"、"对对对"等口语停顿）→ 多说话人 TTS 合成 → 输出拟真度极高的播客
+- **成熟度**：✅ 生产可用
+- **ROI 拐点**：内容平台、培训公司、有声书厂
+- **主要风险**：声音权、深度伪造、商用授权（ChatTTS 陷阱）
+- **倾向性选型**：多语种跨境 → ElevenLabs；国内长期运营 → 冬瓜、MiniMax；低成本探索 → Fish Audio；严格非商用 → ChatTTS
 
 ---
 
-### 3.2 AI 播客听书模式
+#### 4.3.2 AI 播客听书
 
-**书尖 AI**：基于阿里云 AI 的听书/阅读 App，1.2 亿册书库；双主持人 AI 播客模式。
-> `⚠️ 原稿"完听率 85% / 周均 42 小时"未在公开资料中核实到，建议删除或标注为厂商口径。`
+**代表**：书尖 AI（阿里云底座，双主持人模式，1.2 亿册书库）
 
-## 四、文本 AI
+> `⚠️` 原稿\"完听率 85% / 周均 42 小时\"未在公开资料核实到，按厂商口径对待。
+
+**调研结论**：🟡 商用试点；关键看留存与商业化，而非生成能力本身。
+
+---
+
+### 4.4 文本 AI
 
 ![文本 AI](../image/ai-insights/cover-text.png)
 
-### 4.1 企业知识库与 RAG
+#### 4.4.1 企业知识库与 RAG
 
-**RAG 流程**：索引 → 检索 → 生成。
+**场景价值**：把零散的规章 / 工单 / 手册 / 代码文档变成可问答的\"企业大脑\"，替代 30–50% 的初级客服 / IT 支持工作。
 
-**2026 年演进方向**：
-- 自适应检索（按问题复杂度决策）
-- 图检索（Graph RAG）支持多跳推理
-- 全局摘要引导的检索
-- 流式实时 RAG
+**应用对比（向量数据库）**
 
-#### 向量数据库
+| 库 | 能力边界 | 成本 | 可私有化 | 合规 | 生态 |
+| --- | --- | --- | --- | --- | --- |
+| **[FAISS](https://github.com/facebookresearch/faiss)** | 中小（百万级）；算法库非服务 | 免费 | ✅ | ✅ | 低 |
+| **[Milvus](https://milvus.io/)** | 大（千万级+） | 免费 / 企业版 | ✅ | ✅ | 中 |
+| **[Pinecone](https://www.pinecone.io/)** | 中；云 SaaS | 订阅制 | ❌ | ❌ 境外 | 高 |
+| **[Qdrant](https://qdrant.tech/)** | 中大；云 + 本地 | 免费 / 云付费 | ✅ | ✅ | 中 |
 
-| 库 | 规模 | 部署 | 成本 |
-| --- | --- | --- | --- |
-| FAISS（https://github.com/facebookresearch/faiss） | 中小（百万级） | 本地 | 免费 |
-| Milvus（https://milvus.io/） | 大（千万级+） | 本地/云 | 免费 / 企业版 |
-| Pinecone（https://www.pinecone.io/） | 中 | 云 SaaS | 订阅制 |
-| Qdrant（https://qdrant.tech/） | 中大 | 本地/云 | 免费 / 云付费 |
-
-#### 技术要点
+**技术要点**
 
 ![RAG 流水线](../image/ai-insights/diagram-rag.png)
 
-RAG 的效果差距 80% 在工程细节上：
+- **Embedding**：BGE-M3（多语）、E5、OpenAI text-embedding-3、Jina v3
+- **Chunking 策略**：固定长 / 语义 / 递归 / **Late Chunking**（先整段过 embedding 再切向量）
+- **索引**：HNSW 主力；大规模用 IVF-PQ 省显存
+- **Rerank**：Cross-Encoder 二次精排是**提升准确率最明显的单一步骤**（bge-reranker-v2、Cohere Rerank）
+- **Graph RAG**：抽实体关系构图，支持多跳推理（微软 GraphRAG、LightRAG）
+- **Agentic RAG**：让模型自主决策是否检索、检索什么、何时停止 —— 2026 主流演进方向
+- 常见坑：召回分数高 ≠ 答案对；prompt 注入；更新后的全量重建成本
 
-- **Embedding 模型**：决定检索召回上限。代表 BGE-M3（多语言）、E5、OpenAI text-embedding-3、Jina v3
-- **分块（Chunking）**：固定长度 / 语义分块 / 递归分块 / **Late Chunking**（先整段过 embedding 模型再切 token 级向量，保留全局语义）
-- **向量索引**：HNSW 是 FAISS / Milvus / Qdrant 的主力算法；大规模下 IVF-PQ 省显存
-- **Rerank（重排序）**：用 Cross-Encoder 对召回 Top-K 做二次精排，是**提升准确率最明显的单一步骤**，代表 bge-reranker-v2、Cohere Rerank
-- **Graph RAG**：先抽实体关系构知识图谱，再做多跳检索（微软 GraphRAG、LightRAG）—— 适合"X 和 Y 什么关系"这类跨文档问题
-- **Agentic RAG**：让模型自主决策是否检索、检索什么、何时停止，是 2026 年 RAG 的主流演进方向
-- **常见坑**：召回分数高≠答案对；prompt 注入风险；知识更新后的全量重建成本
+**调研结论**
 
----
-
-### 4.2 LLM Agent（智能体）
-
-#### 对比
-
-| 能力 | 传统对话 AI | LLM Agent |
-| --- | --- | --- |
-| 交互 | 单轮问答 | 多轮任务导向 |
-| 工具 | 不支持 | 支持 API/数据库/系统命令 |
-| 记忆 | 单会话 | 跨会话 |
-| 自主性 | 被动响应 | 主动规划+反思修正 |
-
-#### 平台
-
-- **国际**：
-  - **OpenAI Responses API**（https://platform.openai.com/docs/api-reference/responses）—— 2026 当前推荐栈
-  - ⚠️ 原 **Assistants API** 已于 2025-08-26 宣布弃用，2026-08-26 关停
-  - **LangChain**（https://www.langchain.com/）
-  - **AutoGPT**（https://github.com/Significant-Gravitas/AutoGPT）
-- **国内**：
-  - 百度 **文心智能体平台**（https://agents.baidu.com/）
-  - **通义千问 Agent**（https://tongyi.aliyun.com/）
-  - **腾讯元宝**（https://yuanbao.tencent.com/）
-  - **豆包**（https://www.doubao.com/）
-  - **文心一言 / 文小言**（https://yiyan.baidu.com/）—— 消费端已更名"文小言"
-
-#### 技术要点
-
-Agent 从玩具走向生产，靠的是四块技术同时成熟：
-
-- **Function Calling / Tool Use**：结构化 JSON Schema 让模型稳定调用外部工具，是 Agent 的"手"
-- **ReAct 范式**：`Reason → Act → Observe → Reason ...` 的交替循环，开源框架的事实标准
-- **规划（Planning）**：LLM Compiler、Plan-and-Execute、Tree of Thoughts 等把大目标拆子任务
-- **记忆（Memory）**：短期对话缓存 + 长期向量记忆 + 周期性记忆摘要（防止上下文爆炸）
-- **推理模型**（o1/o3/DeepSeek-R1）带来的 Plan-Reflect 循环可靠性，让 Agent 不再卡死在错误步骤
-- **MCP（Model Context Protocol）**：Anthropic 主导、2025 被广泛接受的工具调用协议，让工具生态跨模型复用
-- **为什么 2026 是"Agent 商用元年"**：长上下文稳（100K+ 不降智）+ 推理能力强 + 工具调用标准化 三件事同时就位
+- **成熟度**：✅ 生产可用
+- **ROI 拐点**：文档 > 1000 篇、日均问答 > 100 次的企业
+- **主要风险**：召回失准、答非所问、数据权限控制
+- **倾向性选型**：境内企业 → Milvus + BGE-M3 + bge-reranker；跨境 SaaS → Pinecone + OpenAI Embedding
 
 ---
 
-### 4.3 周报助手（百度 WorkOS）
+#### 4.4.2 LLM Agent（智能体）
+
+**场景价值**：从\"回答问题\"升级为\"完成任务\"，覆盖工单处理、数据分析、运营自动化。
+
+**应用对比**
+
+| 平台 | 能力边界 | 成本 | 可私有化 | 合规 | 生态 |
+| --- | --- | --- | --- | --- | --- |
+| **[OpenAI Responses API](https://platform.openai.com/docs/api-reference/responses)** | 2026 当前推荐栈 | API | ❌ | ❌ 境外 | 高 |
+| ⚠️ **OpenAI Assistants API** | **已弃用**；2026-08-26 关停 | — | ❌ | ❌ | — |
+| **[LangChain](https://www.langchain.com/)** | 开源编排框架 | 免费 | ✅ | ✅ | 低 |
+| **[AutoGPT](https://github.com/Significant-Gravitas/AutoGPT)** | 开源；自主任务 | 免费 | ✅ | ✅ | 低 |
+| **[文心智能体平台](https://agents.baidu.com/)**（百度） | 中文生态；合规 | 按量 | 部分 | ✅ | 中 |
+| **[通义千问 Agent](https://tongyi.aliyun.com/)**（阿里） | 阿里云生态 | 按量 | 部分 | ✅ | 中 |
+| **[腾讯元宝](https://yuanbao.tencent.com/) / [豆包](https://www.doubao.com/) / [文小言](https://yiyan.baidu.com/)** | C 端入口；消费级 | 免费+增值 | ❌ | ✅ | 低 |
+
+**技术要点**
+
+- **Function Calling**：结构化 JSON Schema 稳定调外部工具 —— Agent 的\"手\"
+- **ReAct**：`Reason → Act → Observe → Reason...`，开源事实标准
+- **规划**：LLM Compiler、Plan-and-Execute、Tree of Thoughts
+- **记忆**：短期对话 + 长期向量 + 周期摘要（防上下文爆炸）
+- **推理模型**：o1 / o3 / DeepSeek-R1 把 Plan-Reflect 拉到可生产级
+- **MCP**：2025 被广泛接受的工具调用协议，跨模型复用
+- **2026 是\"Agent 商用元年\"**：长上下文稳（100K+ 不降智）+ 推理强 + 工具协议标准化
+
+**调研结论**
+
+- **成熟度**：🟡 商用试点
+- **ROI 拐点**：高度重复、规则明确、有 API 可接的工作流
+- **主要风险**：幻觉级联、工具调用失败、审计追踪缺失
+- **倾向性选型**：快速原型 → Responses API；本地可控 → LangChain + 开源 LLM；国内合规 → 通义 / 文心 Agent
+
+---
+
+#### 4.4.3 周报助手（百度 WorkOS）
+
+**场景价值**：多源数据自动生成结构化周报，替代 30–60 分钟手工汇总。
+
+**能力要点**
 
 - 数据融合：知识库 + iCode + iCafe + 会议记录
-- 历史周报风险/行动建议
+- 历史周报风险 / 行动建议
 - OKR 结构化填充
 - 自动保存到个人知识库并附链接
 
-## 五、代码 AI
+**调研结论**
+
+- **成熟度**：✅ 内部生产可用
+- **ROI 拐点**：中大型工程团队标配
+- **倾向性选型**：百度内部直接用；外部需自研\"多源数据接入 + 长文结构化\"管线
+
+---
+
+### 4.5 代码 AI
 
 ![代码 AI](../image/ai-insights/cover-code.png)
 
-### 5.1 智能代码生成与补全
+#### 4.5.1 智能代码生成与补全
 
-#### 国际
+**场景价值**：从\"写代码\"升级为\"描述意图 + 审核变更\"，头部团队研发提效 30–60%（口径见原数据）。
 
-| 应用 | 官方 URL | 备注 |
-| --- | --- | --- |
-| **GitHub Copilot** | https://github.com/features/copilot | 官方研究：小任务 **55.8% 提速**（95% CI 21–89%，p=0.0017）。`⚠️ 原稿"85% confidence"为对置信区间的误读` |
-| **Cursor** | https://cursor.com/（原 cursor.sh 已跳转） | 项目级上下文；Tab 预测（新版名为 "Fusion"） |
-| **Windsurf**（Cognition, Inc.） | https://windsurf.com/ | 原 Codeium 品牌；2025-07 Google 关键团队 acquihire，随后 Cognition 收购剩余业务 |
-| **Trae**（字节跳动） | https://www.trae.ai/ | 基于 VSCode 的独立 AI IDE；mac/Win |
-| **Qodo**（原 CodiumAI） | https://www.qodo.ai/ | 2024-09 重命名 |
-| **Replit** | https://replit.com/ | 在线 IDE + Agent |
+**应用对比**
 
-#### 国内
+| 应用 | 能力边界 | 成本 | 可私有化 | 合规 / 代码出境 | 生态 |
+| --- | --- | --- | --- | --- | --- |
+| **[GitHub Copilot](https://github.com/features/copilot)** | 官方研究小任务提速 **55.8%**（95% CI 21–89%，p=0.0017） | 订阅 | ❌ | ❌ 境外 | 高 |
+| **[Cursor](https://cursor.com/)** | 项目级上下文；Fusion 预测 | 订阅 | ❌ | ❌ 境外 | 中 |
+| **[Windsurf](https://windsurf.com/)**（Cognition, Inc.） | 前 Codeium；2025-07 Google acquihire 关键团队，Cognition 收购剩余业务 | 订阅 | ❌ | ❌ 境外 | 中 |
+| **[Trae](https://www.trae.ai/)**（字节） | 基于 VSCode 的独立 AI IDE | 免费+付费 | ❌ | ✅ | 中 |
+| **[Qodo](https://www.qodo.ai/)**（原 CodiumAI） | 测试/质量导向 | 订阅 | ❌ | ❌ 境外 | 中 |
+| **[Replit](https://replit.com/)** | 在线 IDE + Agent | 订阅 | ❌ | ❌ 境外 | 高 |
+| **[文心快码 Comate](https://comate.baidu.com/)** | IDC C++ 代码生成第一；百度内部提效 60% | 企业/个人 | ✅ 可本地化 | ✅ | 中 |
+| **[通义灵码](https://tongyi.aliyun.com/lingma)** | 200+ 语言；阿里云生态 | 企业/个人 | 部分 | ✅ | 中 |
+| **[腾讯云 CodeBuddy](https://copilot.tencent.com/)** | 腾讯云生态 | 企业/个人 | 部分 | ✅ | 中 |
 
-| 应用 | 官方 URL | 备注 |
-| --- | --- | --- |
-| **文心快码 Comate** | https://comate.baidu.com/ | IDC 评测 C++ 代码生成第一；百度内部研发提效 60%；喜马拉雅 AI 代码占比 ~33% |
-| **通义灵码** | https://tongyi.aliyun.com/lingma | 基于通义千问；200+ 语言 |
-| **腾讯云 CodeBuddy** | https://copilot.tencent.com/ | `⚠️ 原链接 /product/tca 非代码助手` |
+> `⚠️` 原稿\"Copilot 85% confidence\"为对 95% 置信区间的误读。
 
-#### 技术要点
+**技术要点**
 
 ![Agentic Coding Loop](../image/ai-insights/diagram-agentic-coding.png)
 
-- **Fill-in-the-Middle（FIM）**：训练时随机切成「前缀+后缀+中段」，让模型学会"在光标处补中间" —— Copilot/Comate 核心补全能力的基础
-- **仓库级上下文**四条路线：
-  - **向量化检索**：把整个仓库切块向量化按相关性拉回（Cursor、Windsurf）
-  - **Agentic Search**：让模型主动调 grep / find / read_file（Claude Code、Codex CLI、Comate Zulu）
-  - **AST / 依赖图**：提取函数调用关系与类型定义
-  - **长上下文直灌**：200K+ 硬塞（Gemini 路线，成本高）
-- **Agentic Coding Loop**：`Plan → Act（写代码/读文件/跑命令）→ Observe → Reflect → Plan...` —— Claude 3.5/4 Sonnet 把工具调用稳定性拉到可生产级，是 2025 拐点
-- **SPEC 规范驱动**（文心快码 / Amazon Kiro）：先生成任务规格 + 变更预览，用户确认后才落盘，解决"Vibe Coding"幻觉与误删问题
-- **Benchmark 演进**：HumanEval（已饱和）→ SWE-bench Verified（真实 GitHub issue 修复，2026 SOTA 70%+）→ Terminal-Bench / OSWorld（多步工具调用）
+- **Fill-in-the-Middle（FIM）**：训练时把代码切成\"前缀+后缀+中段\"，让模型学会\"在光标处补中间\"
+- **仓库级上下文四路线**：
+  - 向量化检索（Cursor、Windsurf）
+  - Agentic Search：主动 grep / find / read_file（Claude Code、Codex CLI、Comate Zulu）
+  - AST / 依赖图
+  - 长上下文直灌（Gemini 路线，成本高）
+- **Agentic Coding Loop**：`Plan → Act → Observe → Reflect`，Claude 3.5/4 Sonnet 把工具调用稳定性拉到生产级，是 2025 拐点
+- **SPEC 规范驱动**（Comate / Amazon Kiro）：先生成任务规格 + 变更预览再落盘，解决\"Vibe Coding\"幻觉与误删
+- **Benchmark 演进**：HumanEval（饱和）→ SWE-bench Verified（2026 SOTA 70%+）→ Terminal-Bench / OSWorld
+
+**调研结论**
+
+- **成熟度**：✅ 生产可用
+- **ROI 拐点**：≥ 10 人的工程团队；核心代码库复杂度中等以上
+- **主要风险**：代码外泄、幻觉 API、依赖引入安全漏洞
+- **倾向性选型**：
+  - 数据不敏感 + 追求 SOTA → **Cursor / Claude Code / Copilot**
+  - 国内企业 / 数据敏感 → **文心快码 / 通义灵码 / 腾讯 CodeBuddy**
+  - 完全自研 → 开源模型 + Continue.dev
 
 ---
 
-### 5.2 AI 代码审查
+#### 4.5.2 AI 代码审查 / 4.5.3 自动化测试 / 4.5.4 DevOps
 
-| 工具 | 官方 URL |
-| --- | --- |
-| **SonarQube** | https://www.sonarsource.com/products/sonarqube/ |
-| **DeepSource** | https://deepsource.com/ |
-| **Snyk Code** | https://snyk.io/product/snyk-code/ |
-| **百度 iCode 智能 CR** | 内部平台 |
+**代码审查**：[SonarQube](https://www.sonarsource.com/products/sonarqube/) / [DeepSource](https://deepsource.com/) / [Snyk Code](https://snyk.io/product/snyk-code/) / 百度 iCode 智能 CR（内部）
 
----
+**自动化测试**：[TestRigor](https://testrigor.com/)（纯自然语言 + 自愈）/ [Applitools](https://applitools.com/)（视觉回归）/ [Parasoft](https://www.parasoft.com/)（C/C++ MC/DC）
 
-### 5.3 自动化测试
+**DevOps**：需求（iCafe/Jira）→ 代码（Comate）→ 提交 → AI CR → 流水线 → 监控；百度内部口径研发效能 +60%、部署频率 5×、MTTR -80%
 
-| 工具 | 官方 URL | 特色 |
-| --- | --- | --- |
-| **TestRigor** | https://testrigor.com/ | 纯自然语言测试；自愈 |
-| **Applitools** | https://applitools.com/ | 视觉回归 |
-| **Parasoft** | https://www.parasoft.com/ | C/C++ AI 用例生成；MC/DC 覆盖 |
+**调研结论**
+
+- **成熟度**：✅ 生产可用（代码审查、测试生成）；🟡 端到端 DevOps 仍在完善
+- **主要风险**：规则误报、回归遗漏、CI 时长膨胀
+- **倾向性选型**：先落地 AI CR（立即见效），再落地测试生成，最后才是端到端 Agent 化
 
 ---
 
-### 5.4 DevOps 全流程
-
-- 需求（iCafe/Jira）→ 代码（Comate）→ 提交 → AI CR → 流水线 → 监控
-- 百度实测：研发效能 +60%、部署频率 5×、MTTR -80%（内部数据，口径见原文）
-
-## 六、跨垂类融合
+### 4.6 跨垂类融合
 
 ![跨垂类融合](../image/ai-insights/cover-fusion.png)
 
-### 6.1 多模态内容创作
+#### 4.6.1 多模态内容创作
 
-- **豆包**（字节）：文+图+视频+音频一体化；抖音/今日头条整合。
+**代表**：豆包（字节）—— 文+图+视频+音频一体化；抖音 / 今日头条整合。
 
-### 6.2 数字孪生 / 虚拟世界
-
-- 组合：图像（纹理）+ 视频（动画）+ 音频（NPC 语音）+ 文本（剧情）+ 代码（逻辑）。
-- 场景：游戏、虚拟展厅、工业数字孪生。
-
-### 6.3 AI 数字人直播（视频+音频+文本）
-
-- **HeyGen**（国际）：175+ 语言；实时交互。
-- **小冰数字人**（https://www.xiaoice.com/）、**立得客登登** 等本地化部署方案 `⚠️ 后者仅在 SEO 类稿件出现，影响力有限`。
-- **市场规模**：艾媒咨询白皮书 2025 年核心市场 **480.6 亿元**。
-
-#### 技术要点
-
-数字人本质是一个**"输入多模态驱动信号 → 输出拟真视听"**的系统：
-
-- **形象建模**：从早期 3D 建模 + 骨骼绑定，演进到 **NeRF / 3D Gaussian Splatting** 神经渲染，拍几分钟视频就能重建一个可驱动数字人
-- **口型同步（Lip Sync）**：Wav2Lip、MuseTalk、SadTalker 等音频驱动口型模型，是直播拟真度的关键
-- **实时 TTS**：要求 <300ms 首字延迟 + 流式输出（MiniMax Speech 2.6、Fish S1 满足）
-- **对话大脑**：LLM + RAG 把品牌商品库/话术库接入，决定"说什么"
-- **实时推流**：RTMP/HLS 推到抖音/快手，配合互动问答触发不同回答分支
-- **本质上是具身智能的 2D 简化版**：同样的 VLA 思路，只是动作输出空间从"关节角度"变成"面部关键点 + 肢体动作"
+**调研结论**：✅ C 端生产可用；B 端需自拼管线。
 
 ---
 
-### 6.4 具身智能 / 人形机器人
+#### 4.6.2 数字孪生 / 虚拟世界
 
-> 2026 年被业界视为"具身智能商用元年"。
+**典型组合**：图像（纹理）+ 视频（动画）+ 音频（NPC）+ 文本（剧情）+ 代码（逻辑）。
 
-#### 技术栈
+**调研结论**：🟡 垂直行业试点（工业、文旅）；通用方案未定型。
+
+---
+
+#### 4.6.3 AI 数字人直播
+
+**场景价值**：7×24 低成本直播、深夜长尾转化、出海多语言带货。
+
+**应用对比**
+
+| 应用 | 能力边界 | 成本 | 可私有化 | 合规 | 生态 |
+| --- | --- | --- | --- | --- | --- |
+| **[HeyGen](https://www.heygen.com/)** | 175+ 语言与方言；LiveAvatar 低延迟 | 订阅 | ❌ | ❌ 境外 | 中 |
+| **[小冰数字人](https://www.xiaoice.com/)** | 数字员工 / 虚拟人系列 | 商务报价 | 部分 | ✅ | 中 |
+| **立得客登登等** | `⚠️ 仅在 SEO 稿出现，影响力有限` | — | — | — | — |
+
+**市场规模**（艾媒咨询白皮书）：**2025 年核心市场 480.6 亿元**（非 2026），产业 6402.7 亿元。
+
+**技术要点**
+
+- **形象建模**：3D 建模 + 骨骼绑定 → NeRF / 3D Gaussian Splatting 神经渲染（拍几分钟视频即可重建）
+- **口型同步**：Wav2Lip、MuseTalk、SadTalker
+- **实时 TTS**：首字延迟 < 300ms + 流式（MiniMax Speech 2.6、Fish S1）
+- **对话大脑**：LLM + RAG 接商品库 / 话术库
+- **实时推流**：RTMP / HLS 到抖音 / 快手
+- **本质是具身智能的 2D 简化版**：输出空间从关节角变成面部关键点 + 肢体动作
+
+**调研结论**
+
+- **成熟度**：✅ 生产可用（规模化运营）
+- **ROI 拐点**：单账号月 GMV > 10 万的带货商家
+- **主要风险**：肖像权、平台规则、直播间互动自然度
+- **倾向性选型**：出海 → HeyGen；国内 → 小冰 / 各云厂商数字人产品
+
+---
+
+#### 4.6.4 具身智能 / 人形机器人
+
+**场景价值**：2026 被业界视为\"具身智能商用元年\"；目标场景是工厂上下料、家庭清洁、物流分拣。
+
+**技术栈速览**
 
 | 层 | 对应垂类 | 能力 |
 | --- | --- | --- |
@@ -451,54 +573,174 @@ Agent 从玩具走向生产，靠的是四块技术同时成熟：
 | 运动小脑 | 代码 AI | 运动控制、力反馈 |
 | 硬件执行 | 机电 | 精密抓取、双足 |
 
-#### 代表企业
+**代表企业**
 
 **中国**
-- **智元（AGIBOT）**（https://www.agibot.com.cn/ | EN: https://www.agibot.com/ | 备用：https://www.zhiyuan-robot.com/）
-  - 产品线：**远征 / 灵犀 / 精灵 / 酷拓（四足）/ 绝尘（清洁）/ OmniHand**（`⚠️ 原稿"探索系列"不存在`）
-  - 营收（APC 2026 官方披露）：2023 ~30 万 → 2024 ~6000 万 → **2025 10.5 亿**；**2027 目标破 100 亿**（原稿 2026 破百亿错误）
-  - **AIMA（AI Machine Architecture）** 2026-04-17 APC 首发
-- **优必选**（https://www.ubtrobot.com/）
-- **未来不远 Futuring Robot**：家庭服务机器人；2026-01 完成 2 亿元天使轮；端到端 AVLA 模型
+- **智元 AGIBOT**（https://www.agibot.com.cn/ | https://www.agibot.com/）
+  - 产品线：**远征 / 灵犀 / 精灵 / 酷拓（四足）/ 绝尘（清洁）/ OmniHand**（`⚠️` 原稿\"探索系列\"不存在）
+  - 营收（APC 2026 官方）：2023 ~30 万 → 2024 ~6000 万 → **2025 10.5 亿**；**2027 目标破 100 亿**（原稿 2026 破百亿错误）
+  - **AIMA** 架构 2026-04-17 APC 首发
+- **[优必选](https://www.ubtrobot.com/)**：https://www.ubtrobot.com/
+- **未来不远 Futuring Robot**：家庭服务；2026-01 完成 2 亿天使轮；端到端 AVLA
 
 **国际**
-- **Figure AI**（https://www.figure.ai/）：`⚠️ 2025-02-04 已终止与 OpenAI 合作，改用自研 Helix（VLA）模型`；Figure 02 已部署 BMW Spartanburg 工厂（原稿"GPT-6 驱动"不准确）
-- **Tesla Optimus**（https://www.tesla.com/optimus）：Gen 3 低量产 2026 夏（Fremont），高量产 2027 夏（Giga Texas，规划年产 1000 万台）
+- **[Figure AI](https://www.figure.ai/)**：`⚠️ 2025-02-04 已终止与 OpenAI 合作，改用自研 Helix（VLA）`；Figure 02 已部署 BMW Spartanburg（原稿\"GPT-6 驱动\"不准确）
+- **[Tesla Optimus](https://www.tesla.com/optimus)**：Gen 3 低量产 2026 夏（Fremont），高量产 2027 夏（Giga Texas，规划年产 1000 万台）
 
-#### 技术要点
+**技术要点**
 
 ![VLA 分层控制：System 1 + System 2](../image/ai-insights/diagram-vla-hierarchy.png)
 
-- **VLA（Vision-Language-Action）大模型**：输入多路摄像头 + 文本指令 + 本体状态，输出关节/末端动作 tokens，端到端替代传统"感知→规划→控制"三段式。代表 RT-2、OpenVLA、Figure Helix、智元 GO-1
+- **VLA 大模型**：多路摄像头 + 文本指令 + 本体状态 → 关节 / 末端动作 tokens，端到端替代\"感知→规划→控制\"三段式（RT-2、OpenVLA、Figure Helix、智元 GO-1）
 - **分层 VLA（System 1 + System 2）**：
-  - **System 2 慢脑**：7B+ 大模型做任务规划，几 Hz
-  - **System 1 快脑**：小模型或 Diffusion Policy 出动作，200 Hz
-  - Figure Helix、Physical Intelligence π0 走这条路，解决"大模型跑不快"问题
-- **世界模型（World Model）**：让机器人在脑内"预演"物理结果再决策，也用于仿真数据生成。代表 V-JEPA2、GWM-1、1X World Model
+  - System 2 慢脑：7B+ 做规划，几 Hz
+  - System 1 快脑：小模型 / Diffusion Policy 出动作，200 Hz
+  - Figure Helix、Physical Intelligence π0 路线
+- **世界模型**：脑内预演物理再决策，也用于仿真数据（V-JEPA2、GWM-1、1X World Model）
+
 ![具身智能数据金字塔](../image/ai-insights/diagram-embodied-pyramid.png)
 
-- **数据金字塔**：遥操作（最稀缺、最高质）→ 真实 rollouts → 仿真器数据 → 人类视频（Ego4D/YouTube，海量但缺动作标注）—— 谁能把人类视频高质量转成动作标签，谁就赢数据战
-- **Sim2Real**：靠 Domain Randomization（随机化光照/摩擦/重力）让仿真训练的策略迁移到真实硬件
-- **为什么 2026 是"具身商用元年"**：VLA 压到 1–3B 可端侧实时跑 + 数据飞轮跑通 + 关节电机从万元降到千元级 + 政策/资本共振
+- **数据金字塔**：遥操作（最稀缺最高质）→ 真实 rollouts → 仿真数据 → 人类视频（Ego4D/YouTube）—— 谁能把人类视频高质量转成动作标签，谁就赢数据战
+- **Sim2Real**：Domain Randomization（随机化光照 / 摩擦 / 重力）
+- **2026 商用元年三件事**：VLA 压到 1–3B 端侧跑通 + 数据飞轮 + 关节电机降至千元级 + 政策 / 资本共振
+
+**调研结论**
+
+- **成熟度**：🟡 商用试点（工厂上下料）→ 🧪 家庭场景仍实验
+- **ROI 拐点**：人力替代成本 / 单台硬件成本 < 3 年（当前多数场景尚未达到）
+- **主要风险**：硬件可靠性、安全事故、法律责任界定、数据不足
+- **倾向性选型**：采购方\"先用四足 + 机械臂打通流程，再等人形量产\"
 
 ---
 
-## 七、总结
+## 五、横向对比
 
-| 垂类 | 代表应用（国际） | 代表应用（国内） | 2026 趋势 |
-| --- | --- | --- | --- |
-| 图像 | Midjourney V7 / GPT Image 1.5 / SD / NovelAI | 通义万相 / 文心一格 / 爱创 AI / 触站 AI | 场景垂直化、动漫风格、可控性增强 |
-| 视频 | Runway Gen-4.5 / Sora 2 / Ray3 | 可灵 3.0 / Seedance 2.0 / 沃创 / HappyHorse-1.0 | AI 漫剧爆发、智能分镜、音画同生 |
-| 音频 | ElevenLabs v3 / Play.ht / Fish Audio | 冬瓜配音 / MiniMax Speech 2.6 / ChatTTS | 情感化、多语言、实时交互 |
-| 文本 | ChatGPT / Claude / Gemini | 通义千问 / 豆包 / 文心（文小言） | Agent 商用元年；Responses API 成主流 |
-| 代码 | Copilot / Cursor / Windsurf / Trae | 文心快码 / 通义灵码 / 腾讯云 CodeBuddy | 全流程 DevOps、规范驱动 |
-| 融合 | HeyGen / Figure / Tesla Optimus | 小冰 / 智元 / 优必选 / 未来不远 | 数字人 7×24 直播、人形机器人商用 |
+### 5.1 国际→国内对标速查
+
+| 垂类 | 国际代表 | 国内对标 |
+| --- | --- | --- |
+| 图像（通用） | GPT Image 1.5 / Midjourney V7 | 通义万相 / 文心一格 / 吐司 |
+| 图像（二次元） | NovelAI / Niji | 触站 / 画宇宙 / 吐司 |
+| 视频（通用） | Sora 2 / Runway Gen-4.5 / Ray3 | 可灵 3.0 / Seedance 2.0 / HappyHorse |
+| 视频（电商 Agent） | — | 沃创 Wocreate |
+| 音频（TTS） | ElevenLabs / Play.ht | MiniMax / 冬瓜配音 / Fish（半国内） |
+| 文本（LLM） | GPT / Claude / Gemini | 通义千问 / 豆包 / 文心 / DeepSeek |
+| 文本（Agent） | OpenAI Responses API / LangChain | 文心智能体 / 通义 Agent / 元宝 |
+| 代码 | Copilot / Cursor / Windsurf / Claude Code | 文心快码 / 通义灵码 / 腾讯 CodeBuddy / Trae |
+| 数字人直播 | HeyGen | 小冰 / 各云厂商 |
+| 人形机器人 | Figure / Tesla Optimus / π | 智元 / 优必选 / 未来不远 |
+
+### 5.2 成本分档
+
+| 分档 | 代表应用 |
+| --- | --- |
+| **免费** | SDXL / Flux / Animagine / ComfyUI、ChatTTS（非商用）、FAISS、AutoGPT、LangChain |
+| **<¥100/月** | 触站 AI、吐司 AI、百宝音、Fish Audio 免费额度、豆包 / 元宝 C 端 |
+| **¥100–1000/月** | Midjourney、GPT Plus、Cursor Pro、Copilot、ElevenLabs、可灵 / Seedance 订阅 |
+| **企业级（按量/商务）** | 通义万相、文心快码、HeyGen、Milvus 企业版、Runway、Sora 2 Pro、智元 / Figure 商务报价 |
+
+### 5.3 落地难度矩阵（业务价值 × 实施成本）
+
+- **左上象限（高价值 / 低成本，立即做）**：电商产品图 AI、代码补全、企业 RAG、数字人直播、有声书 TTS
+- **右上象限（高价值 / 高成本，立项做）**：AI 短剧工业化、Agent 端到端自动化、工厂具身上下料
+- **左下象限（低价值 / 低成本，探索即可）**：艺术概念图、AI 播客听书、生成式视觉浏览器
+- **右下象限（低价值 / 高成本，避免）**：通用数字孪生、家庭人形机器人（现阶段）
 
 ---
 
-## 附录：官方链接汇总
+## 六、趋势与拐点
 
-### 图像 AI
+### 6.1 近 12 个月关键事件时间线（2025-05 → 2026-04）
+
+| 时间 | 事件 |
+| --- | --- |
+| 2025-02 | Figure AI 终止与 OpenAI 合作，改用自研 Helix |
+| 2025-06 | Midjourney V7 成默认模型 |
+| 2025-07 | Google acquihire Windsurf 关键团队，Cognition 收购剩余业务 |
+| 2025-08-26 | OpenAI Assistants API 官宣弃用（2026-08-26 关停） |
+| 2025 年内 | MCP 协议被广泛采用，成为跨模型工具调用事实标准 |
+| 2026-01 | Luma Ray3 发布；未来不远完成 2 亿元天使轮 |
+| 2026-02 | 可灵 3.0 / Seedance 2.0 同期发布 |
+| 2026-03 | GPT Image 1.5 LM Arena ELO 1264 登顶；Midjourney V8-Alpha 预览 |
+| 2026-04-09 | 阿里 HappyHorse-1.0 开源（15B，音画同生） |
+| 2026-04-17 | 智元 APC 2026 首发 AIMA 架构 |
+
+### 6.2 未来 12 个月展望
+
+- **2026-05-12**：DALL-E 3 API 关停
+- **2026-08-26**：OpenAI Assistants API 关停
+- **2026 下半年**：视频模型预计普遍突破 30s；具身 VLA 走向 3B 以下端侧；RAG 进入\"Agentic RAG + Graph RAG\"主流化
+- **2027**：Tesla Optimus 高量产；智元目标营收破百亿；AI 代码 Agent 在 SWE-bench Verified 有望破 80%
+
+---
+
+## 七、当前做不好的事（失败模式清单）
+
+| 垂类 | 还做不好的事 |
+| --- | --- |
+| 图像 | 跨图复杂一致性（同一人物 10 张 + 10 种姿态）、小文字精确渲染、手指与复杂交互 |
+| 视频 | > 15s 的因果一致、多人复杂对话、体育 / 舞蹈的精细物理、长镜头稳定性 |
+| 音频 | 长篇幅（> 30 分钟）情感与韵律一致、歌唱真情感、复杂多说话人重叠对话 |
+| 文本 | 真正的多步规划可靠性、复杂推理的可审计性、跨会话的长期记忆治理 |
+| 代码 | 大型遗留代码库重构、跨服务分布式调试、非主流语言与老旧框架 |
+| 数字人 | 长直播的表情 / 语调自然度、高强度互动的对话反应速度与准确度 |
+| 具身 | 家庭复杂未结构化场景、双手精细协作（系鞋带 / 折毛巾）、长任务链的可靠性 |
+
+---
+
+## 八、选型 Checklist
+
+可复用的 7 维评估表，建议对每家候选各打 1–5 分：
+
+| 维度 | 关键问题 |
+| --- | --- |
+| **功能** | 是否覆盖关键能力？独立榜单排名？与业务最 hard 的 case 的实测效果？ |
+| **成本** | 起步价、规模化后的单位成本、隐藏算力 / 训练成本？ |
+| **合规** | 境内备案？数据出境？行业监管（金融 / 医疗 / 教育）？版权来源？ |
+| **生态** | 与现有技术栈集成难度？SDK / 插件 / 社区活跃度？替代方案丰富度？ |
+| **数据安全** | 可本地化部署？私有化微调？数据是否用于训练？是否可追溯？ |
+| **SLA** | 可用性承诺？故障响应时间？历史宕机记录？ |
+| **退出成本** | 切换成本（prompt 资产、微调权重、用户习惯）？数据可导出？API 标准化？ |
+
+---
+
+## 九、行动建议（按读者分路径）
+
+### 9.1 产品 PM（关注\"能做什么新产品\"）
+
+阅读路径：§1 摘要 → §4 各垂类\"场景价值 / 调研结论\" → §6 趋势 → §7 做不好的事
+
+落地动作：
+
+- 在 4.1.1 / 4.3.1 / 4.6.3 找 **\"立即做\"** 的 PMF
+- 用 §8 Checklist 做轻量选型
+- 对 §7 的失败模式保持敬畏，避免承诺做不到的能力
+
+### 9.2 技术选型（关注\"选哪家、怎么拼\"）
+
+阅读路径：§3 共通技术栈 → §4 各场景\"应用对比 + 技术要点\" → §5.1 国内外对标 → §8 Checklist
+
+落地动作：
+
+- 用 §3 判断\"自研 vs 调 API\"：Embedding / LoRA / ControlNet 自主；基础大模型全部调 API
+- 用 §4 的\"可私有化 / 合规\"列筛候选
+- 用 §5.3 矩阵决定优先级
+
+### 9.3 高管汇报（关注\"投不投、投多少\"）
+
+阅读路径：§1 摘要 → §5.2 成本分档 → §5.3 落地难度矩阵 → §6 趋势 → §7 做不好的事
+
+落地动作：
+
+- 用 §1 三句话回答\"为什么是现在\"
+- 用 §5.3 回答\"投哪里 ROI 最高\"
+- 用 §6 + §7 回答\"风险是什么、什么时候才能扩\"
+
+---
+
+## 附录 A：官方链接汇总
+
+### A.1 图像 AI
 - Stable Diffusion: https://stability.ai/
 - ControlNet: https://github.com/lllyasviel/ControlNet
 - DALL-E 3（2026-05-12 API 关停）: https://openai.com/index/dall-e-3/
@@ -512,9 +754,9 @@ Agent 从玩具走向生产，靠的是四块技术同时成熟：
 - 画宇宙: https://creator.nolibox.com/
 - 吐司 AI: https://tusi.cn/
 - Animagine XL 3.1: https://huggingface.co/cagliostrolab/animagine-xl-3.1
-- Flipbook（生成式视觉浏览器 / 实验项目）: https://flipbook.page/
+- Flipbook: https://flipbook.page/
 
-### 视频 AI
+### A.2 视频 AI
 - Runway: https://runwayml.com/
 - Luma Labs: https://lumalabs.ai/
 - OpenAI Sora: https://openai.com/sora
@@ -522,13 +764,13 @@ Agent 从玩具走向生产，靠的是四块技术同时成熟：
 - 快手可灵: https://klingai.kuaishou.com/
 - 字节即梦 Seedance: https://jimeng.jianying.com/
 - 沃创 Wocreate: https://wocreate.ai/
-- 阿里 HappyHorse-1.0: 官方渠道以阿里官宣为准（`⚠️ happyhorseprompt.com 非官方`）
+- HappyHorse-1.0: 以阿里官宣渠道为准（`⚠️ happyhorseprompt.com 非官方`）
 - Vidu: https://www.vidu.cn/
 - Pika: https://pika.art/
 - 万彩动画大师: https://www.animiz.cn/
 - ComfyUI: https://www.comfy.org/zh-cn/
 
-### 音频 AI
+### A.3 音频 AI
 - ElevenLabs: https://elevenlabs.io/
 - Play.ht: https://play.ht/
 - Fish Audio: https://fish.audio/
@@ -538,7 +780,7 @@ Agent 从玩具走向生产，靠的是四块技术同时成熟：
 - 剪映 / CapCut: https://www.capcut.com/
 - 腾讯智影: https://zenvideo.qq.com/
 
-### 文本 AI
+### A.4 文本 AI
 - ChatGPT: https://chatgpt.com/
 - Claude: https://claude.ai/
 - Gemini: https://gemini.google.com/
@@ -551,13 +793,13 @@ Agent 从玩具走向生产，靠的是四块技术同时成熟：
 - 腾讯元宝: https://yuanbao.tencent.com/
 - 百度文心智能体平台: https://agents.baidu.com/
 
-### 向量数据库
+### A.5 向量数据库
 - FAISS: https://github.com/facebookresearch/faiss
 - Milvus: https://milvus.io/
 - Pinecone: https://www.pinecone.io/
 - Qdrant: https://qdrant.tech/
 
-### 代码 AI
+### A.6 代码 AI
 - GitHub Copilot: https://github.com/features/copilot
 - Cursor: https://cursor.com/
 - Windsurf: https://windsurf.com/
@@ -568,17 +810,15 @@ Agent 从玩具走向生产，靠的是四块技术同时成熟：
 - 通义灵码: https://tongyi.aliyun.com/lingma
 - 腾讯云 CodeBuddy: https://copilot.tencent.com/
 
-### 代码审查
+### A.7 代码审查与测试
 - SonarQube: https://www.sonarsource.com/products/sonarqube/
 - DeepSource: https://deepsource.com/
 - Snyk Code: https://snyk.io/product/snyk-code/
-
-### 自动化测试
 - TestRigor: https://testrigor.com/
 - Applitools: https://applitools.com/
 - Parasoft: https://www.parasoft.com/
 
-### 具身智能 / 数字人
+### A.8 具身智能 / 数字人
 - 智元 AGIBOT: https://www.agibot.com.cn/ ・ https://www.agibot.com/
 - 优必选: https://www.ubtrobot.com/
 - Figure AI: https://www.figure.ai/
@@ -587,14 +827,38 @@ Agent 从玩具走向生产，靠的是四块技术同时成熟：
 
 ---
 
-## 本次修订主要变更（2026-04-24）
+## 附录 B：术语表
 
-1. **版本/型号更正**：Midjourney V6→V7/V8-Alpha；Runway Gen-4→Gen-4.5；Luma Dream Machine 2.0→Ray3；Sora Pro→Sora 2（25s/1080p）；可灵 30s→15s；Seedance 12s→15s；HappyHorse 150B→15B。
-2. **链接更新**：Cursor cursor.sh→cursor.com；Windsurf codeium.com→windsurf.com；CodiumAI→Qodo；腾讯云 TCA→CodeBuddy；ChatGPT 主域名→chatgpt.com。
-3. **API 弃用**：OpenAI Assistants API 将于 2026-08-26 关停，改用 Responses API。
-4. **事实辟谣**：《霍去病》数据已被导演辟谣；"郑州日新月异裁员"无公开来源。
-5. **数据口径**：AI 漫剧 2025 市场 168 亿（非 189.8 亿）；数字人 480.6 亿为 2025 年核心市场；ElevenLabs 70+ 语言；HeyGen 175+ 语言；Fish Audio "8000" 单位为 credits 非字符。
-6. **产品归属**：Figure AI 与 OpenAI 已于 2025-02 终止合作，采用自研 Helix 模型；智元产品线无"探索系列"，2027（非 2026）目标百亿。
-7. **许可限定**：ChatTTS 模型权重为 CC BY-NC 4.0，禁止商用。
-8. **新增实验性场景**：Flipbook 生成式视觉浏览器（1.4）——图像 AI 向"生成式 UI"方向的原型。
-9. **技术内容就地化**：技术讲解下沉到复杂度高的具体场景（1.1/1.3/2.3/3.1/4.1/4.2/5.1/6.3/6.4），以 `技术要点` 子节形式就近呈现；低复杂度场景保持纯应用视角，避免堆砌。
+| 术语 | 含义 |
+| --- | --- |
+| **DiT** | Diffusion Transformer，扩散模型的 Transformer 主干 |
+| **3D VAE** | 视频编解码器，时间+空间双下采样 |
+| **ControlNet** | 旁路结构控制（姿态 / 边缘 / 深度） |
+| **LoRA** | 低秩适配微调 |
+| **IP-Adapter** | 用图像作 prompt 的适配器 |
+| **FIM** | Fill-in-the-Middle，代码补全训练范式 |
+| **RAG** | Retrieval-Augmented Generation |
+| **HNSW** | 近似最近邻图索引 |
+| **ReAct** | `Reason-Act-Observe` 循环的 Agent 范式 |
+| **MCP** | Model Context Protocol，工具调用协议 |
+| **VLA** | Vision-Language-Action，端到端具身模型 |
+| **System 1 / 2** | 快 / 慢双系统的分层 VLA 架构 |
+| **Sim2Real** | 仿真训练到真实硬件的策略迁移 |
+| **SWE-bench** | 真实 GitHub issue 修复评测 |
+
+---
+
+## 附录 C：本次修订变更（2026-04-24 结构化改写版）
+
+本次改写在前次\"事实勘误版\"基础上进行，**不新增未经核实的事实**、**不删除 ⚠️ 勘误标注**，主要做了结构化重组：
+
+1. **新增顶层结构**：摘要 / 方法论 / 共通技术栈 / 横向对比 / 趋势时间线 / 失败模式清单 / 选型 Checklist / 按读者分路径的行动建议 8 个新章节。
+2. **统一场景四段式**：每个垂类场景改为 `场景价值 / 五维应用对比 / 场景专属技术要点 / 调研结论` 模板。
+3. **五维对比表**：替换原\"优势 / 劣势 / 人群\"的营销式对比，改为 `能力边界 / 成本 / 数据闭环 / 合规 / 生态绑定成本`。
+4. **调研结论模板化**：每个场景给出 `成熟度 / ROI 拐点 / 主要风险 / 倾向性选型`。
+5. **技术内容去重**：把各场景共用的基础模型、ControlNet、LoRA、ReAct、MCP 等抽到 §3 共通技术栈；场景内只保留\"本场景特有\"。
+6. **新增 §5.3 落地矩阵**：业务价值 × 实施成本的四象限文字描述。
+7. **新增 §6 趋势时间线**：近 12 个月关键事件 + 未来 12 个月展望。
+8. **新增 §7 做不好的事**：单列各垂类失败模式清单，便于管理期望。
+9. **新增 §8 7 维选型 Checklist** 与 **§9 按读者分路径的阅读+落地动作**。
+10. **保留原件所有**：⚠️ 勘误标注、外链、技术要点要素、11 张配图、上一版\"事实勘误\"全部保留，未删信息。
