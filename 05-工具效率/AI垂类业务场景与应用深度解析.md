@@ -24,6 +24,8 @@ tags: [AI, 垂类应用, 综述]
 
 ## 一、图像 AI
 
+![图像 AI](../image/ai-insights/cover-image.png)
+
 ### 1.1 电商产品图生成
 
 **场景**：电商卖家需批量产出主图、场景图、详情页素材。AI 可从白底图自动生成场景图、去背景、扩图、生成套图。
@@ -56,6 +58,16 @@ tags: [AI, 垂类应用, 综述]
 | 通义万相 | 阿里生态 | 局限阿里系 | 淘宝天猫商家 |
 | 文心一格 | 中文/国风/合规 | 艺术性一般 | 国内品牌 |
 | 爱创 AI | 一键全套素材 | 风格较固定 | 1688 商家 |
+
+#### 技术要点
+
+电商场景图的落地链路基本固定为 **「SDXL/Flux 主干 + ControlNet 空间控制 + LoRA 风格/商品定制 + IP-Adapter 参考图」**：
+
+- **主干模型**：SDXL、Flux.1、HunyuanDiT 等文生图大模型决定画面基础质量
+- **ControlNet**：在不改变主模型权重的前提下，用旁路分支注入姿态/边缘/深度/线稿等结构条件 —— 是"商品位置不偏移"的关键
+- **LoRA**（Low-Rank Adaptation）：用几十张图微调一个几十 MB 的小权重，把品牌视觉风格/特定商品形象"记住"
+- **IP-Adapter**：用一张参考图作为图像 prompt，快速迁移风格或人物
+- **为什么直接 T2I 不够**：单纯文生图对"同一沙发在客厅/卧室/阳台"这类一致性任务控制力弱，必须靠 ControlNet 锁结构 + LoRA 锁身份
 
 ---
 
@@ -92,6 +104,12 @@ tags: [AI, 垂类应用, 综述]
 | 访问 | 需境外网络 | 国内直连 |
 | 社区 | 全球资源最丰富 | 本土内容丰富 |
 
+#### 技术要点
+
+- **Danbooru 标签体系**：NovelAI/Animagine 等动漫模型的训练语料以 Danbooru 图站的**逗号分隔标签**为 prompt 形态（如 `1girl, long_hair, school_uniform, solo`），这是二次元模型"提示词=标签"而非自然语句的根本原因
+- **角色一致性 LoRA**：同人/VTuber 创作的核心工具。用 20–50 张角色素材微调一个专属 LoRA（几小时训练），就能让任意 prompt 生成的图都保持角色面部/服装特征
+- **负面提示词（Negative Prompt）**：二次元生成比其他场景更依赖 `bad hands, extra fingers, watermark, lowres` 这类负面词约束
+
 ---
 
 ### 1.4 生成式视觉浏览器（实验性新形态）
@@ -116,6 +134,8 @@ tags: [AI, 垂类应用, 综述]
 - **延伸思考**：当图像/视频模型推理成本与精度进一步改进，"在 Flipbook 里直接订机票、办事"并非不可能——这正是作者设想的"生成式 OS/浏览器"方向。
 
 ## 二、视频 AI
+
+![视频 AI](../image/ai-insights/cover-video.png)
 
 ### 2.1 电商带货短视频
 
@@ -171,7 +191,24 @@ tags: [AI, 垂类应用, 综述]
 - **可灵 + 角色一致性 LoRA**：仿真人短剧主力。
 - **ComfyUI**（https://www.comfy.org/zh-cn/）：本地节点式工作流；可控性最强。
 
+#### 技术要点（视频 AI）
+
+![AI 短剧制作流水线](../image/ai-insights/diagram-ai-drama.png)
+
+AI 漫剧/短剧之所以成为 2026 最火赛道，背后是视频生成栈的几个关键突破：
+
+- **3D VAE**：视频的"压缩器"。在时间+空间两维同时下采样（常见 4×8×8），把 10 秒 1080p 视频压到几千个 token，扩散模型才算得动
+- **视频 DiT**：用 Transformer 做时空联合建模，替代早期 U-Net+时序注意力的二阶段方案。Sora、可灵、HunyuanVideo、HappyHorse 全系采用
+- **角色一致性 LoRA**：仿真人短剧的核心——用真人或 AI 头像训练专属 LoRA，保证跨集跨镜头的人物外观不漂移
+- **I2V（图生视频）vs T2V**：国内商用几乎全是 I2V（先生成首帧图再驱动动起来），可控性远高于纯 T2V
+- **音画联合生成**：HappyHorse、Sora 2 代表方向——同一 Transformer 内同时生成视频 token 与音频 token，天然口型/节奏同步
+- **为什么卡在 15 秒？** 3D Attention 算力随序列长度平方增长，显存也同步飙升；突破到 Sora 2 的 25 秒靠稀疏注意力+显存工程
+
+---
+
 ## 三、音频 AI
+
+![音频 AI](../image/ai-insights/cover-audio.png)
 
 ### 3.1 有声书与播客
 
@@ -196,6 +233,19 @@ tags: [AI, 垂类应用, 综述]
 
 > **勘误**：原稿"ChatTTS 永久免费 / 终身免费"需限定为**非商业用途**；商业化需联系授权。
 
+#### 技术要点（音频 AI）
+
+TTS 范式 2023 年后发生了根本性迁移：
+
+- **神经音频编码器（Neural Audio Codec）**：把音频压成离散 token（EnCodec、SoundStream、Mimi），让 LLM 能像写文字一样写音频 —— 这是"零样本语音克隆"的基石
+- **两类主流 TTS 范式**：
+  - **自回归 LM + Codec**：代表 VALL-E、ChatTTS —— 韵律自然、情感丰富，但长文本有重复/漏读风险
+  - **扩散 / Flow Matching**：代表 F5-TTS、Fish S1 —— 并行生成更快更稳，情感略弱
+  - 2026 年商用产品多为**混合路线**（自回归生语义 + 扩散出声学）
+- **零样本克隆原理**：用 ECAPA-TDNN 等提取 3–10 秒参考音频的说话人特征 embedding，作为 LM prompt 前缀让模型"续说"成你的声音 —— 这就是"3 秒克隆"的本质
+- **情感控制**：文本内联标签（`[laugh]`、`[sigh]`）直接渲染、参考音频风格迁移、SSML 细粒度控制三条路径
+- **AI 播客（NotebookLM / 书尖）范式**：长文本 → LLM 生成双 agent 对话脚本（带"嗯"、"对对对"等口语停顿）→ 多说话人 TTS 合成 → 输出拟真度极高的播客
+
 ---
 
 ### 3.2 AI 播客听书模式
@@ -204,6 +254,8 @@ tags: [AI, 垂类应用, 综述]
 > `⚠️ 原稿"完听率 85% / 周均 42 小时"未在公开资料中核实到，建议删除或标注为厂商口径。`
 
 ## 四、文本 AI
+
+![文本 AI](../image/ai-insights/cover-text.png)
 
 ### 4.1 企业知识库与 RAG
 
@@ -223,6 +275,20 @@ tags: [AI, 垂类应用, 综述]
 | Milvus（https://milvus.io/） | 大（千万级+） | 本地/云 | 免费 / 企业版 |
 | Pinecone（https://www.pinecone.io/） | 中 | 云 SaaS | 订阅制 |
 | Qdrant（https://qdrant.tech/） | 中大 | 本地/云 | 免费 / 云付费 |
+
+#### 技术要点
+
+![RAG 流水线](../image/ai-insights/diagram-rag.png)
+
+RAG 的效果差距 80% 在工程细节上：
+
+- **Embedding 模型**：决定检索召回上限。代表 BGE-M3（多语言）、E5、OpenAI text-embedding-3、Jina v3
+- **分块（Chunking）**：固定长度 / 语义分块 / 递归分块 / **Late Chunking**（先整段过 embedding 模型再切 token 级向量，保留全局语义）
+- **向量索引**：HNSW 是 FAISS / Milvus / Qdrant 的主力算法；大规模下 IVF-PQ 省显存
+- **Rerank（重排序）**：用 Cross-Encoder 对召回 Top-K 做二次精排，是**提升准确率最明显的单一步骤**，代表 bge-reranker-v2、Cohere Rerank
+- **Graph RAG**：先抽实体关系构知识图谱，再做多跳检索（微软 GraphRAG、LightRAG）—— 适合"X 和 Y 什么关系"这类跨文档问题
+- **Agentic RAG**：让模型自主决策是否检索、检索什么、何时停止，是 2026 年 RAG 的主流演进方向
+- **常见坑**：召回分数高≠答案对；prompt 注入风险；知识更新后的全量重建成本
 
 ---
 
@@ -251,6 +317,18 @@ tags: [AI, 垂类应用, 综述]
   - **豆包**（https://www.doubao.com/）
   - **文心一言 / 文小言**（https://yiyan.baidu.com/）—— 消费端已更名"文小言"
 
+#### 技术要点
+
+Agent 从玩具走向生产，靠的是四块技术同时成熟：
+
+- **Function Calling / Tool Use**：结构化 JSON Schema 让模型稳定调用外部工具，是 Agent 的"手"
+- **ReAct 范式**：`Reason → Act → Observe → Reason ...` 的交替循环，开源框架的事实标准
+- **规划（Planning）**：LLM Compiler、Plan-and-Execute、Tree of Thoughts 等把大目标拆子任务
+- **记忆（Memory）**：短期对话缓存 + 长期向量记忆 + 周期性记忆摘要（防止上下文爆炸）
+- **推理模型**（o1/o3/DeepSeek-R1）带来的 Plan-Reflect 循环可靠性，让 Agent 不再卡死在错误步骤
+- **MCP（Model Context Protocol）**：Anthropic 主导、2025 被广泛接受的工具调用协议，让工具生态跨模型复用
+- **为什么 2026 是"Agent 商用元年"**：长上下文稳（100K+ 不降智）+ 推理能力强 + 工具调用标准化 三件事同时就位
+
 ---
 
 ### 4.3 周报助手（百度 WorkOS）
@@ -261,6 +339,8 @@ tags: [AI, 垂类应用, 综述]
 - 自动保存到个人知识库并附链接
 
 ## 五、代码 AI
+
+![代码 AI](../image/ai-insights/cover-code.png)
 
 ### 5.1 智能代码生成与补全
 
@@ -282,6 +362,20 @@ tags: [AI, 垂类应用, 综述]
 | **文心快码 Comate** | https://comate.baidu.com/ | IDC 评测 C++ 代码生成第一；百度内部研发提效 60%；喜马拉雅 AI 代码占比 ~33% |
 | **通义灵码** | https://tongyi.aliyun.com/lingma | 基于通义千问；200+ 语言 |
 | **腾讯云 CodeBuddy** | https://copilot.tencent.com/ | `⚠️ 原链接 /product/tca 非代码助手` |
+
+#### 技术要点
+
+![Agentic Coding Loop](../image/ai-insights/diagram-agentic-coding.png)
+
+- **Fill-in-the-Middle（FIM）**：训练时随机切成「前缀+后缀+中段」，让模型学会"在光标处补中间" —— Copilot/Comate 核心补全能力的基础
+- **仓库级上下文**四条路线：
+  - **向量化检索**：把整个仓库切块向量化按相关性拉回（Cursor、Windsurf）
+  - **Agentic Search**：让模型主动调 grep / find / read_file（Claude Code、Codex CLI、Comate Zulu）
+  - **AST / 依赖图**：提取函数调用关系与类型定义
+  - **长上下文直灌**：200K+ 硬塞（Gemini 路线，成本高）
+- **Agentic Coding Loop**：`Plan → Act（写代码/读文件/跑命令）→ Observe → Reflect → Plan...` —— Claude 3.5/4 Sonnet 把工具调用稳定性拉到可生产级，是 2025 拐点
+- **SPEC 规范驱动**（文心快码 / Amazon Kiro）：先生成任务规格 + 变更预览，用户确认后才落盘，解决"Vibe Coding"幻觉与误删问题
+- **Benchmark 演进**：HumanEval（已饱和）→ SWE-bench Verified（真实 GitHub issue 修复，2026 SOTA 70%+）→ Terminal-Bench / OSWorld（多步工具调用）
 
 ---
 
@@ -313,6 +407,8 @@ tags: [AI, 垂类应用, 综述]
 
 ## 六、跨垂类融合
 
+![跨垂类融合](../image/ai-insights/cover-fusion.png)
+
 ### 6.1 多模态内容创作
 
 - **豆包**（字节）：文+图+视频+音频一体化；抖音/今日头条整合。
@@ -327,6 +423,19 @@ tags: [AI, 垂类应用, 综述]
 - **HeyGen**（国际）：175+ 语言；实时交互。
 - **小冰数字人**（https://www.xiaoice.com/）、**立得客登登** 等本地化部署方案 `⚠️ 后者仅在 SEO 类稿件出现，影响力有限`。
 - **市场规模**：艾媒咨询白皮书 2025 年核心市场 **480.6 亿元**。
+
+#### 技术要点
+
+数字人本质是一个**"输入多模态驱动信号 → 输出拟真视听"**的系统：
+
+- **形象建模**：从早期 3D 建模 + 骨骼绑定，演进到 **NeRF / 3D Gaussian Splatting** 神经渲染，拍几分钟视频就能重建一个可驱动数字人
+- **口型同步（Lip Sync）**：Wav2Lip、MuseTalk、SadTalker 等音频驱动口型模型，是直播拟真度的关键
+- **实时 TTS**：要求 <300ms 首字延迟 + 流式输出（MiniMax Speech 2.6、Fish S1 满足）
+- **对话大脑**：LLM + RAG 把品牌商品库/话术库接入，决定"说什么"
+- **实时推流**：RTMP/HLS 推到抖音/快手，配合互动问答触发不同回答分支
+- **本质上是具身智能的 2D 简化版**：同样的 VLA 思路，只是动作输出空间从"关节角度"变成"面部关键点 + 肢体动作"
+
+---
 
 ### 6.4 具身智能 / 人形机器人
 
@@ -355,6 +464,24 @@ tags: [AI, 垂类应用, 综述]
 **国际**
 - **Figure AI**（https://www.figure.ai/）：`⚠️ 2025-02-04 已终止与 OpenAI 合作，改用自研 Helix（VLA）模型`；Figure 02 已部署 BMW Spartanburg 工厂（原稿"GPT-6 驱动"不准确）
 - **Tesla Optimus**（https://www.tesla.com/optimus）：Gen 3 低量产 2026 夏（Fremont），高量产 2027 夏（Giga Texas，规划年产 1000 万台）
+
+#### 技术要点
+
+![VLA 分层控制：System 1 + System 2](../image/ai-insights/diagram-vla-hierarchy.png)
+
+- **VLA（Vision-Language-Action）大模型**：输入多路摄像头 + 文本指令 + 本体状态，输出关节/末端动作 tokens，端到端替代传统"感知→规划→控制"三段式。代表 RT-2、OpenVLA、Figure Helix、智元 GO-1
+- **分层 VLA（System 1 + System 2）**：
+  - **System 2 慢脑**：7B+ 大模型做任务规划，几 Hz
+  - **System 1 快脑**：小模型或 Diffusion Policy 出动作，200 Hz
+  - Figure Helix、Physical Intelligence π0 走这条路，解决"大模型跑不快"问题
+- **世界模型（World Model）**：让机器人在脑内"预演"物理结果再决策，也用于仿真数据生成。代表 V-JEPA2、GWM-1、1X World Model
+![具身智能数据金字塔](../image/ai-insights/diagram-embodied-pyramid.png)
+
+- **数据金字塔**：遥操作（最稀缺、最高质）→ 真实 rollouts → 仿真器数据 → 人类视频（Ego4D/YouTube，海量但缺动作标注）—— 谁能把人类视频高质量转成动作标签，谁就赢数据战
+- **Sim2Real**：靠 Domain Randomization（随机化光照/摩擦/重力）让仿真训练的策略迁移到真实硬件
+- **为什么 2026 是"具身商用元年"**：VLA 压到 1–3B 可端侧实时跑 + 数据飞轮跑通 + 关节电机从万元降到千元级 + 政策/资本共振
+
+---
 
 ## 七、总结
 
@@ -470,4 +597,4 @@ tags: [AI, 垂类应用, 综述]
 6. **产品归属**：Figure AI 与 OpenAI 已于 2025-02 终止合作，采用自研 Helix 模型；智元产品线无"探索系列"，2027（非 2026）目标百亿。
 7. **许可限定**：ChatTTS 模型权重为 CC BY-NC 4.0，禁止商用。
 8. **新增实验性场景**：Flipbook 生成式视觉浏览器（1.4）——图像 AI 向"生成式 UI"方向的原型。
-9. **新增技术底座章节**：每个垂类末尾补充 `X.N 技术底座`（演进路径 + 核心技术 + 关键洞察）。
+9. **技术内容就地化**：技术讲解下沉到复杂度高的具体场景（1.1/1.3/2.3/3.1/4.1/4.2/5.1/6.3/6.4），以 `技术要点` 子节形式就近呈现；低复杂度场景保持纯应用视角，避免堆砌。

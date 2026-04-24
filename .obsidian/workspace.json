@@ -14,8 +14,8 @@
               "type": "markdown",
               "state": {
                 "file": "05-工具效率/AI垂类业务场景与应用深度解析.md",
-                "mode": "source",
-                "source": false
+                "mode": "preview",
+                "source": true
               },
               "icon": "lucide-file",
               "title": "AI垂类业务场景与应用深度解析"
@@ -177,6 +177,18 @@
   },
   "active": "d65c00afd484d774",
   "lastOpenFiles": [
+    "image/ai-insights/diagram-ai-drama.png",
+    "image/ai-insights/diagram-vla-hierarchy.png",
+    "image/ai-insights/diagram-embodied-pyramid.png",
+    "image/ai-insights/diagram-agentic-coding.png",
+    "image/ai-insights/diagram-rag.png",
+    "image/ai-insights/cover-fusion.png",
+    "image/ai-insights/cover-code.png",
+    "image/ai-insights/cover-text.png",
+    "image/ai-insights/cover-image.png",
+    "image/ai-insights/cover-video.png",
+    "image/ai-insights/cover-audio.png",
+    "image/ai-insights",
     "01-编程语言/cocos2d-x 学习.md",
     "01-编程语言/深入浅出Nodejs.md",
     "02-数据库/SQL必知必会（使用psql学习）.md",
@@ -197,9 +209,6 @@
     "编程珠玑.md",
     "AI_Concept_Template.md.md",
     "conflict-files-obsidian-git.md",
-    "image/Pasted image 20240716134620.png",
-    "image/Pasted image 20240716134325.png",
-    "image/Pasted image 20240716134218.png",
     "image",
     "读书笔记",
     "test.md"
