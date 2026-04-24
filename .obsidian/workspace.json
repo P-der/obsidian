@@ -11,10 +11,14 @@
             "id": "74779cf9159306a0",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "05-工具效率/AI垂类业务场景与应用深度解析.md",
+                "mode": "preview",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "AI垂类业务场景与应用深度解析"
             }
           }
         ]
@@ -74,7 +78,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200,
+    "collapsed": true
   },
   "right": {
     "id": "6e98be620c7b0c1b",
@@ -170,8 +175,9 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "440e83c3936247d9",
+  "active": "74779cf9159306a0",
   "lastOpenFiles": [
+    "05-工具效率/AI垂类业务场景与应用深度解析.md",
     "readme.md",
     "01-编程语言/cocos2d-x 学习.md",
     "Inbox/收集箱.md",
