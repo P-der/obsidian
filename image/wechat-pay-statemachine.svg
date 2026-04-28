@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 280" width="760" height="280">
+  <defs>
+    <marker id="ah" markerWidth="9" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#94A3B8"/>
+    </marker>
+    <marker id="ahred" markerWidth="9" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#F87171"/>
+    </marker>
+    <marker id="ahleft" markerWidth="9" markerHeight="7" refX="0" refY="3.5" orient="auto">
+      <polygon points="9 0, 0 3.5, 9 7" fill="#94A3B8"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="760" height="280" fill="#F8FAFC"/>
+
+  <!-- Title -->
+  <text x="380" y="30" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="15" font-weight="700" fill="#0F172A">支付状态机</text>
+
+  <!-- ─────── 主流程（第一行，y_center = 90）─────── -->
+
+  <!-- IDLE -->
+  <rect x="20" y="68" width="82" height="44" rx="8" fill="#94A3B8"/>
+  <text x="61" y="95" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="13" font-weight="700" fill="white">IDLE</text>
+  <!-- label -->
+  <text x="61" y="58" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#64748B">初始</text>
+
+  <!-- IDLE → CREATING -->
+  <line x1="102" y1="90" x2="148" y2="90" stroke="#94A3B8" stroke-width="1.5" marker-end="url(#ah)"/>
+  <text x="125" y="82" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#64748B">点击购买</text>
+
+  <!-- CREATING -->
+  <rect x="150" y="68" width="108" height="44" rx="8" fill="#2563EB"/>
+  <text x="204" y="95" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="13" font-weight="700" fill="white">CREATING</text>
+  <text x="204" y="58" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#64748B">创建订单中</text>
+
+  <!-- CREATING → PAYING -->
+  <line x1="258" y1="90" x2="308" y2="90" stroke="#94A3B8" stroke-width="1.5" marker-end="url(#ah)"/>
+  <text x="283" y="82" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#64748B">订单创建</text>
+
+  <!-- PAYING -->
+  <rect x="310" y="68" width="90" height="44" rx="8" fill="#7C3AED"/>
+  <text x="355" y="95" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="13" font-weight="700" fill="white">PAYING</text>
+  <text x="355" y="58" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#64748B">收银台中</text>
+
+  <!-- PAYING → POLLING -->
+  <line x1="400" y1="90" x2="448" y2="90" stroke="#94A3B8" stroke-width="1.5" marker-end="url(#ah)"/>
+  <text x="424" y="82" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#64748B">支付成功</text>
+
+  <!-- POLLING -->
+  <rect x="450" y="68" width="90" height="44" rx="8" fill="#D97706"/>
+  <text x="495" y="95" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="13" font-weight="700" fill="white">POLLING</text>
+  <text x="495" y="58" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#64748B">轮询发货</text>
+
+  <!-- POLLING → DELIVERED -->
+  <line x1="540" y1="90" x2="596" y2="90" stroke="#94A3B8" stroke-width="1.5" marker-end="url(#ah)"/>
+  <text x="568" y="82" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#64748B">发货确认</text>
+
+  <!-- DELIVERED -->
+  <rect x="598" y="68" width="108" height="44" rx="8" fill="#059669"/>
+  <text x="652" y="95" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="13" font-weight="700" fill="white">DELIVERED</text>
+  <text x="652" y="58" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#64748B">发货完成 ✓</text>
+
+  <!-- ─────── 异常分支（第二行，y_center = 200）─────── -->
+
+  <!-- PAYING → CANCELLED（向下箭头） -->
+  <line x1="355" y1="112" x2="355" y2="175" stroke="#94A3B8" stroke-width="1.5" marker-end="url(#ah)"/>
+  <text x="307" y="148" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#64748B">用户取消</text>
+
+  <!-- CANCELLED -->
+  <rect x="300" y="177" width="110" height="44" rx="8" fill="#6B7280"/>
+  <text x="355" y="204" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="13" font-weight="700" fill="white">CANCELLED</text>
+
+  <!-- POLLING → FAILED（向下箭头） -->
+  <line x1="495" y1="112" x2="495" y2="175" stroke="#F87171" stroke-width="1.5" marker-end="url(#ahred)"/>
+  <text x="502" y="148" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#EF4444">超时/失败</text>
+
+  <!-- FAILED -->
+  <rect x="450" y="177" width="90" height="44" rx="8" fill="#EF4444"/>
+  <text x="495" y="204" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="13" font-weight="700" fill="white">FAILED</text>
+
+  <!-- FAILED → POLLING 重试（绕顶部进入） -->
+  <path d="M 540,199 L 596,199 L 596,50 L 540,50 L 540,68" fill="none" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#ah)"/>
+  <text x="606" y="140" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#64748B">重试</text>
+
+  <!-- Legend -->
+  <rect x="20" y="246" width="12" height="12" rx="2" fill="#059669"/>
+  <text x="38" y="257" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#374151">终态（成功）</text>
+  <rect x="130" y="246" width="12" height="12" rx="2" fill="#6B7280"/>
+  <text x="148" y="257" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#374151">终态（取消）</text>
+  <rect x="260" y="246" width="12" height="12" rx="2" fill="#EF4444"/>
+  <text x="278" y="257" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#374151">可重试失败态</text>
+  <line x1="390" y1="252" x2="420" y2="252" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="428" y="257" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#374151">重试路径</text>
+</svg>

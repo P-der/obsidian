@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 400" width="700" height="400">
+  <defs>
+    <marker id="ah" markerWidth="9" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#94A3B8"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="700" height="400" fill="#F8FAFC"/>
+
+  <!-- Title -->
+  <text x="350" y="36" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="16" font-weight="700" fill="#0F172A">整体架构图</text>
+
+  <!-- ── Layer 1: 微信小程序 ── -->
+  <rect x="40" y="52" width="620" height="86" rx="8" fill="#EFF6FF" stroke="#2563EB" stroke-width="2"/>
+  <text x="64" y="76" font-family="system-ui,-apple-system,sans-serif" font-size="13" font-weight="700" fill="#1D4ED8">微信小程序（前端）</text>
+  <text x="350" y="100" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12" fill="#374151">[商品页]  →  用户点击购买  →  wx.requestVirtualPayment(productId)</text>
+  <text x="350" y="122" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#3B82F6">状态机：IDLE → CREATING → PAYING → POLLING → DELIVERED</text>
+
+  <!-- Arrow 1 -->
+  <line x1="350" y1="138" x2="350" y2="162" stroke="#94A3B8" stroke-width="2" marker-end="url(#ah)"/>
+
+  <!-- ── Layer 2: 微信路由层 ── -->
+  <rect x="40" y="164" width="620" height="110" rx="8" fill="#F5F3FF" stroke="#6D28D9" stroke-width="2"/>
+  <text x="64" y="188" font-family="system-ui,-apple-system,sans-serif" font-size="13" font-weight="700" fill="#5B21B6">微信客户端路由层（自动判断设备，前端无需处理）</text>
+
+  <!-- iOS sub-box -->
+  <rect x="72" y="200" width="220" height="60" rx="6" fill="#E0F2FE" stroke="#0284C7" stroke-width="1.5"/>
+  <text x="182" y="226" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="13" font-weight="600" fill="#0369A1">iOS 端</text>
+  <text x="182" y="248" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#0369A1">Apple Pay 收银台</text>
+
+  <!-- Center auto-route label -->
+  <text x="350" y="228" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="24" fill="#A78BFA">⇌</text>
+  <text x="350" y="248" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#8B5CF6">自动路由</text>
+
+  <!-- Android sub-box -->
+  <rect x="408" y="200" width="220" height="60" rx="6" fill="#DCFCE7" stroke="#16A34A" stroke-width="1.5"/>
+  <text x="518" y="226" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="13" font-weight="600" fill="#15803D">Android / 鸿蒙</text>
+  <text x="518" y="248" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#15803D">微信支付收银台</text>
+
+  <!-- Arrow 2 -->
+  <line x1="350" y1="274" x2="350" y2="301" stroke="#94A3B8" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="358" y="290" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#94A3B8">支付完成，推送发货通知</text>
+
+  <!-- ── Layer 3: 业务服务器 ── -->
+  <rect x="40" y="303" width="620" height="82" rx="8" fill="#FFFBEB" stroke="#D97706" stroke-width="2"/>
+  <text x="64" y="327" font-family="system-ui,-apple-system,sans-serif" font-size="13" font-weight="700" fill="#B45309">业务服务器（后端）</text>
+  <text x="350" y="351" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12" fill="#374151">接收 xpay_goods_deliver_notify  →  执行发货  →  回调微信确认</text>
+  <text x="350" y="372" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#6B7280">前端通过轮询该接口确认发货状态（兜底机制）</text>
+</svg>

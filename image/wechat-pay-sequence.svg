@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 732" width="800" height="732">
+  <defs>
+    <marker id="ag" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 7 3, 0 6" fill="#16A34A"/>
+    </marker>
+    <marker id="ab" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 7 3, 0 6" fill="#2563EB"/>
+    </marker>
+    <marker id="ap" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 7 3, 0 6" fill="#7C3AED"/>
+    </marker>
+    <marker id="ao" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 7 3, 0 6" fill="#EA580C"/>
+    </marker>
+    <marker id="aw" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 7 3, 0 6" fill="#D97706"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="732" fill="#F8FAFC"/>
+
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif"
+        font-size="17" font-weight="700" fill="#0F172A">完整支付时序</text>
+
+  <!-- ══ TOP PARTICIPANT BOXES ══ -->
+  <rect x="55"  y="46" width="80" height="32" rx="5" fill="#16A34A"/>
+  <text x="95"  y="67" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif"
+        font-size="13" font-weight="700" fill="white">用户</text>
+  <rect x="245" y="46" width="80" height="32" rx="5" fill="#2563EB"/>
+  <text x="285" y="67" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif"
+        font-size="13" font-weight="700" fill="white">前端</text>
+  <rect x="440" y="46" width="80" height="32" rx="5" fill="#7C3AED"/>
+  <text x="480" y="67" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif"
+        font-size="13" font-weight="700" fill="white">微信</text>
+  <rect x="640" y="46" width="80" height="32" rx="5" fill="#EA580C"/>
+  <text x="680" y="67" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif"
+        font-size="13" font-weight="700" fill="white">后端</text>
+
+  <!-- ══ LIFELINES ══ -->
+  <line x1="95"  y1="78" x2="95"  y2="692" stroke="#E2E8F0" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <line x1="285" y1="78" x2="285" y2="692" stroke="#E2E8F0" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <line x1="480" y1="78" x2="480" y2="692" stroke="#E2E8F0" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <line x1="680" y1="78" x2="680" y2="692" stroke="#E2E8F0" stroke-width="1.5" stroke-dasharray="5,4"/>
+
+  <!-- ① 用户 → 前端 -->
+  <text x="190" y="117" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif"
+        font-size="11" font-weight="600" fill="#16A34A">发起购买</text>
+  <line x1="99" y1="125" x2="278" y2="125"
+        stroke="#16A34A" stroke-width="1.5" marker-end="url(#ag)"/>
+
+  <!-- ② 前端 → 后端 -->
+  <text x="482" y="160" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif"
+        font-size="11" font-weight="600" fill="#2563EB">POST /order/create</text>
+  <line x1="289" y1="168" x2="673" y2="168"
+        stroke="#2563EB" stroke-width="1.5" marker-end="url(#ab)"/>
+
+  <!-- ③ 后端 → 前端 -->
+  <text x="482" y="200" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif"
+        font-size="11" font-weight="600" fill="#EA580C">outTradeNo + paySig + signature</text>
+  <line x1="676" y1="208" x2="292" y2="208"
+        stroke="#EA580C" stroke-width="1.5" marker-end="url(#ao)"/>
+
+  <!-- ④ 前端 → 微信 -->
+  <text x="382" y="260" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif"
+        font-size="11" font-weight="600" fill="#2563EB">wx.requestVirtualPayment( signData )</text>
+  <line x1="289" y1="268" x2="473" y2="268"
+        stroke="#2563EB" stroke-width="1.5" marker-end="url(#ab)"/>
+
+  <!-- ROUTING NOTE on 微信 lifeline -->
+  <rect x="418" y="282" width="124" height="46" rx="5" fill="#EDE9FE" stroke="#7C3AED" stroke-width="1"/>
+  <text x="480" y="302" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif"
+        font-size="10" font-weight="600" fill="#4C1D95">iOS → Apple Pay</text>
+  <text x="480" y="319" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif"
+        font-size="10" fill="#4C1D95">Android → 微信支付</text>
+
+  <!-- ⑤ 微信 → 用户 -->
+  <text x="287" y="368" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif"
+        font-size="11" font-weight="600" fill="#7C3AED">弹出收银台</text>
+  <line x1="476" y1="376" x2="102" y2="376"
+        stroke="#7C3AED" stroke-width="1.5" marker-end="url(#ap)"/>
+
+  <!-- ⑥ 用户 → 微信 -->
+  <text x="287" y="412" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif"
+        font-size="11" font-weight="600" fill="#16A34A">完成支付 / 取消</text>
+  <line x1="99" y1="420" x2="473" y2="420"
+        stroke="#16A34A" stroke-width="1.5" marker-end="url(#ag)"/>
+
+  <!-- ⑦ 微信 → 前端 (dashed + warning) -->
+  <text x="382" y="462" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif"
+        font-size="11" font-weight="600" fill="#D97706">success / fail 回调</text>
+  <line x1="476" y1="470" x2="292" y2="470"
+        stroke="#D97706" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#aw)"/>
+  <rect x="262" y="478" width="240" height="20" rx="4" fill="#FEF9C3"/>
+  <text x="382" y="492" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif"
+        font-size="10" fill="#92400E">⚠ 可能丢失，不可作为发货依据</text>
+
+  <!-- ⑧ 前端 → 后端: 轮询 -->
+  <rect x="267" y="513" width="432" height="36" rx="4" fill="#EFF6FF"/>
+  <text x="483" y="527" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif"
+        font-size="11" font-weight="600" fill="#1D4ED8">轮询 GET /order/status（指数退避）</text>
+  <line x1="289" y1="541" x2="673" y2="541"
+        stroke="#2563EB" stroke-width="1.5" marker-end="url(#ab)"/>
+
+  <!-- ⑨ 微信 → 后端 -->
+  <text x="580" y="573" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif"
+        font-size="11" font-weight="600" fill="#7C3AED">deliver_notify（主通道）</text>
+  <line x1="484" y1="581" x2="673" y2="581"
+        stroke="#7C3AED" stroke-width="1.5" marker-end="url(#ap)"/>
+
+  <!-- ⑩ 后端 → 前端 -->
+  <text x="482" y="617" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif"
+        font-size="11" font-weight="600" fill="#EA580C">DELIVERED → 触发发货逻辑</text>
+  <line x1="676" y1="625" x2="292" y2="625"
+        stroke="#EA580C" stroke-width="1.5" marker-end="url(#ao)"/>
+
+  <!-- ⑪ 前端 → 用户 -->
+  <text x="190" y="659" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif"
+        font-size="11" font-weight="600" fill="#2563EB">跳转成功页</text>
+  <line x1="281" y1="667" x2="102" y2="667"
+        stroke="#2563EB" stroke-width="1.5" marker-end="url(#ab)"/>
+
+  <!-- ══ BOTTOM PARTICIPANT BOXES ══ -->
+  <rect x="55"  y="696" width="80" height="32" rx="5" fill="#16A34A"/>
+  <text x="95"  y="717" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif"
+        font-size="13" font-weight="700" fill="white">用户</text>
+  <rect x="245" y="696" width="80" height="32" rx="5" fill="#2563EB"/>
+  <text x="285" y="717" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif"
+        font-size="13" font-weight="700" fill="white">前端</text>
+  <rect x="440" y="696" width="80" height="32" rx="5" fill="#7C3AED"/>
+  <text x="480" y="717" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif"
+        font-size="13" font-weight="700" fill="white">微信</text>
+  <rect x="640" y="696" width="80" height="32" rx="5" fill="#EA580C"/>
+  <text x="680" y="717" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif"
+        font-size="13" font-weight="700" fill="white">后端</text>
+</svg>

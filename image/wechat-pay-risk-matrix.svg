@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 440" width="760" height="440">
+
+  <!-- Background -->
+  <rect width="760" height="440" fill="#F8FAFC"/>
+
+  <!-- Title -->
+  <text x="380" y="28" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif"
+        font-size="16" font-weight="700" fill="#0F172A">风险矩阵（概率 × 影响）</text>
+
+  <!-- ══ COLUMN HEADERS ══ -->
+  <text x="169" y="46" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="600" fill="#475569">低</text>
+  <text x="327" y="46" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="600" fill="#475569">中</text>
+  <text x="485" y="46" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="600" fill="#475569">高</text>
+  <text x="642" y="46" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="600" fill="#475569">必然</text>
+
+  <!-- ══ ROW HEADERS ══ -->
+  <text x="72" y="111" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="600" fill="#475569">高</text>
+  <text x="72" y="221" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="600" fill="#475569">中</text>
+  <text x="72" y="331" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="600" fill="#475569">低</text>
+
+  <!-- ══ CELL BACKGROUNDS ══ -->
+  <!-- Row 1: 影响高 (y=52–162) -->
+  <rect x="90"  y="52" width="158" height="110" fill="#FEFCE8"/>  <!-- 中风险 -->
+  <rect x="248" y="52" width="158" height="110" fill="#FEE2E2"/>  <!-- 高风险 -->
+  <rect x="406" y="52" width="158" height="110" fill="#FEE2E2"/>  <!-- 高风险 -->
+  <rect x="564" y="52" width="156" height="110" fill="#FEE2E2"/>  <!-- 高风险 -->
+  <!-- Row 2: 影响中 (y=162–272) -->
+  <rect x="90"  y="162" width="158" height="110" fill="#F0FDF4"/>  <!-- 低风险 -->
+  <rect x="248" y="162" width="158" height="110" fill="#FEFCE8"/>  <!-- 中风险 -->
+  <rect x="406" y="162" width="158" height="110" fill="#FEFCE8"/>  <!-- 中风险 -->
+  <rect x="564" y="162" width="156" height="110" fill="#FEE2E2"/>  <!-- 高风险 -->
+  <!-- Row 3: 影响低 (y=272–382) -->
+  <rect x="90"  y="272" width="158" height="110" fill="#F0FDF4"/>  <!-- 低风险 -->
+  <rect x="248" y="272" width="158" height="110" fill="#F0FDF4"/>  <!-- 低风险 -->
+  <rect x="406" y="272" width="158" height="110" fill="#FEFCE8"/>  <!-- 中风险 -->
+  <rect x="564" y="272" width="156" height="110" fill="#FEFCE8"/>  <!-- 中风险 -->
+
+  <!-- ══ GRID LINES ══ -->
+  <rect x="90" y="52" width="630" height="330" fill="none" stroke="#CBD5E1" stroke-width="1.5"/>
+  <line x1="248" y1="52"  x2="248" y2="382" stroke="#CBD5E1" stroke-width="1"/>
+  <line x1="406" y1="52"  x2="406" y2="382" stroke="#CBD5E1" stroke-width="1"/>
+  <line x1="564" y1="52"  x2="564" y2="382" stroke="#CBD5E1" stroke-width="1"/>
+  <line x1="90"  y1="162" x2="720" y2="162" stroke="#CBD5E1" stroke-width="1"/>
+  <line x1="90"  y1="272" x2="720" y2="272" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- ══ RISK LEVEL BADGES (top-right of each cell, 9px) ══ -->
+  <!-- Row 1 -->
+  <text x="241" y="65" text-anchor="end"
+        font-family="system-ui,-apple-system,sans-serif" font-size="9" font-weight="600" fill="#CA8A04">中风险</text>
+  <text x="399" y="65" text-anchor="end"
+        font-family="system-ui,-apple-system,sans-serif" font-size="9" font-weight="600" fill="#DC2626">高风险</text>
+  <text x="557" y="65" text-anchor="end"
+        font-family="system-ui,-apple-system,sans-serif" font-size="9" font-weight="600" fill="#DC2626">高风险</text>
+  <text x="713" y="65" text-anchor="end"
+        font-family="system-ui,-apple-system,sans-serif" font-size="9" font-weight="600" fill="#DC2626">高风险</text>
+  <!-- Row 2 -->
+  <text x="241" y="175" text-anchor="end"
+        font-family="system-ui,-apple-system,sans-serif" font-size="9" font-weight="600" fill="#16A34A">低风险</text>
+  <text x="399" y="175" text-anchor="end"
+        font-family="system-ui,-apple-system,sans-serif" font-size="9" font-weight="600" fill="#CA8A04">中风险</text>
+  <text x="557" y="175" text-anchor="end"
+        font-family="system-ui,-apple-system,sans-serif" font-size="9" font-weight="600" fill="#CA8A04">中风险</text>
+  <text x="713" y="175" text-anchor="end"
+        font-family="system-ui,-apple-system,sans-serif" font-size="9" font-weight="600" fill="#DC2626">高风险</text>
+  <!-- Row 3 -->
+  <text x="241" y="285" text-anchor="end"
+        font-family="system-ui,-apple-system,sans-serif" font-size="9" font-weight="600" fill="#16A34A">低风险</text>
+  <text x="399" y="285" text-anchor="end"
+        font-family="system-ui,-apple-system,sans-serif" font-size="9" font-weight="600" fill="#16A34A">低风险</text>
+  <text x="557" y="285" text-anchor="end"
+        font-family="system-ui,-apple-system,sans-serif" font-size="9" font-weight="600" fill="#CA8A04">中风险</text>
+  <text x="713" y="285" text-anchor="end"
+        font-family="system-ui,-apple-system,sans-serif" font-size="9" font-weight="600" fill="#CA8A04">中风险</text>
+
+  <!-- ══ RISK ITEMS ══ -->
+
+  <!-- 影响高 × 概率低 → 中风险 (2 items, center x=169 y=107) -->
+  <text x="169" y="99" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="600" fill="#CA8A04">苹果费率政策变化</text>
+  <text x="169" y="117" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="600" fill="#CA8A04">重复支付风险</text>
+
+  <!-- 影响高 × 概率中 → 高风险 (2 items, center x=327 y=107) -->
+  <text x="327" y="99" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="600" fill="#DC2626">success 回调丢失</text>
+  <text x="327" y="117" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="600" fill="#DC2626">资质审核延迟</text>
+
+  <!-- 影响高 × 概率必然 → 高风险 (1 item, center x=642 y=107) -->
+  <text x="642" y="112" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="600" fill="#DC2626">商品价格发布不可改</text>
+
+  <!-- 影响中 × 概率中 → 中风险 (1 item, center x=327 y=217) -->
+  <text x="327" y="222" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="600" fill="#CA8A04">iOS 退款流程投诉</text>
+
+  <!-- 影响中 × 概率必然 → 高风险 (2 items, center x=642 y=217) -->
+  <text x="642" y="209" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="600" fill="#DC2626">iOS 沙箱不可用</text>
+  <text x="642" y="227" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="600" fill="#DC2626">iOS 结算周期长</text>
+
+  <!-- ══ AXIS LABELS ══ -->
+  <text x="20" y="217" text-anchor="middle" transform="rotate(-90,20,217)"
+        font-family="system-ui,-apple-system,sans-serif"
+        font-size="12" font-weight="700" fill="#374151">影响</text>
+  <text x="405" y="400" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif"
+        font-size="12" font-weight="700" fill="#374151">概率 →</text>
+
+  <!-- ══ LEGEND ══ -->
+  <text x="126" y="423" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="600" fill="#374151">图例：</text>
+  <rect x="172" y="412" width="12" height="12" rx="2" fill="#FEE2E2" stroke="#DC2626" stroke-width="1"/>
+  <text x="190" y="423" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#374151">高风险（需优先处理）</text>
+  <rect x="358" y="412" width="12" height="12" rx="2" fill="#FEFCE8" stroke="#CA8A04" stroke-width="1"/>
+  <text x="376" y="423" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#374151">中风险（需持续关注）</text>
+  <rect x="548" y="412" width="12" height="12" rx="2" fill="#F0FDF4" stroke="#16A34A" stroke-width="1"/>
+  <text x="566" y="423" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#374151">低风险（常规跟踪）</text>
+
+</svg>
