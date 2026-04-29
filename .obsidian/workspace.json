@@ -175,6 +175,9 @@
   },
   "active": "440e83c3936247d9",
   "lastOpenFiles": [
+    "Inbox/test_mermaid.md",
+    "image/svg-web-editor-architecture.png",
+    "architecture.html",
     "Inbox/SVG简易编辑器SDK研发汇报.md",
     "architecture.mmd",
     "architecture.png",
@@ -189,7 +192,6 @@
     "image/ai-insights/cover-fusion.png",
     "image/ai-insights/cover-code.png",
     "image/ai-insights/cover-text.png",
-    "image/ai-insights/cover-image.png",
     "image/ai-insights",
     "01-编程语言/cocos2d-x 学习.md",
     "01-编程语言/深入浅出Nodejs.md",
@@ -210,7 +212,6 @@
     "编程珠玑.md",
     "AI_Concept_Template.md.md",
     "conflict-files-obsidian-git.md",
-    "image",
     "test.md"
   ]
 }

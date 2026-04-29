@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #ffffff; padding: 40px; margin: 0; display: flex; justify-content: center; align-items: flex-start; height: 1100px; width: 800px; box-sizing: border-box; }
+  .diagram { border: 2px solid #e2e8f0; border-radius: 12px; padding: 30px; background: #f8fafc; width: 100%; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); box-sizing: border-box; }
+  .title { text-align: center; font-size: 26px; font-weight: 800; color: #0f172a; margin-bottom: 25px; letter-spacing: -0.5px; }
+  .box { border: 2px solid #cbd5e1; border-radius: 10px; padding: 20px; margin-bottom: 0px; background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+  .box-title { font-weight: 700; color: #334155; margin-bottom: 15px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; font-size: 18px; display: flex; align-items: center; gap: 8px; }
+  .flex-row { display: flex; gap: 20px; justify-content: space-between; }
+  .node { flex: 1; border: 2px solid #94a3b8; border-radius: 8px; padding: 16px; text-align: center; background: #ffffff; color: #0f172a; font-weight: 600; line-height: 1.5; font-size: 16px; }
+  .node span { font-size: 13px; font-weight: 400; color: #64748b; display: block; margin-top: 4px; }
+  .node-blue { border-color: #3b82f6; background: #eff6ff; color: #1d4ed8; }
+  .node-blue span { color: #3b82f6; }
+  .node-green { border-color: #10b981; background: #ecfdf5; color: #047857; }
+  .node-green span { color: #10b981; }
+  .node-purple { border-color: #8b5cf6; background: #f5f3ff; color: #4338ca; }
+  .node-purple span { color: #8b5cf6; }
+  .node-orange { border-color: #f97316; background: #fff7ed; color: #c2410c; }
+  .node-orange span { color: #f97316; }
+  .arrow-down { text-align: center; margin: 12px 0; display: flex; flex-direction: column; align-items: center; gap: 4px; height: 50px; justify-content: center; }
+  .arrow-down svg { width: 24px; height: 24px; color: #94a3b8; }
+  .arrow-bidir { display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 15px; }
+  .arrow-text { font-size: 14px; color: #475569; font-weight: 500; background: #f8fafc; padding: 4px 12px; border-radius: 20px; border: 1px solid #e2e8f0; }
+  .state-circle { border: 2px dashed #3b82f6; border-radius: 12px; padding: 20px; text-align: center; background: #eff6ff; color: #1d4ed8; font-weight: bold; margin: 0 auto; width: 70%; font-size: 16px; box-sizing: border-box; }
+  .state-circle span { font-size: 13px; font-weight: normal; color: #3b82f6; display: block; margin-top: 6px; }
+</style>
+</head>
+<body>
+  <div class="diagram" id="diagram">
+    <div class="title">🧩 SvgEditor.vue (SDK 根组件)</div>
+    
+    <div class="box">
+      <div class="box-title">🧠 状态层 (useEditorState)</div>
+      <div class="flex-row">
+        <div class="node node-blue">EditorCommandService<span>服务层：封装操作 API</span></div>
+        <div class="node node-green">PosterEditor<span>底层 SVG 渲染引擎</span></div>
+      </div>
+      <div class="arrow-bidir">
+        <span class="arrow-text">1. 指令操作 (text/font) ➡️</span>
+        <span class="arrow-text">⬅️ 2. 派发事件 (select/history)</span>
+      </div>
+    </div>
+    
+    <div class="arrow-down">
+      <span class="arrow-text" style="background: white; border: none; font-weight: bold; color: #3b82f6; margin-bottom: -15px; z-index: 10;">自动更新</span>
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+    </div>
+    
+    <div class="state-circle">
+      ( 全局响应式状态 )
+      <span>选中态、字号、颜色、撤销栈等</span>
+    </div>
+    
+    <div class="arrow-down">
+      <span class="arrow-text" style="margin-bottom: -15px; z-index: 10;">3. Props 向下透传</span>
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+    </div>
+    
+    <div class="box">
+      <div class="box-title">🎨 视图层 (业务 UI 组件)</div>
+      <div class="flex-row">
+        <div class="node node-purple">EditorTopBar<span>顶部操作栏 (撤销/重做/导出)</span></div>
+        <div class="node node-purple">EditorContextToolbar<span>上下文工具栏 (字号/拾色器)</span></div>
+      </div>
+      <div class="arrow-bidir">
+         <span class="arrow-text">⬆️ 4. 用户交互触发 (调 Service API)</span>
+      </div>
+    </div>
+    
+    <div class="arrow-down">
+      <span class="arrow-text" style="margin-bottom: -15px; z-index: 10;">监听 DOM 变化定位组件挂载</span>
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+    </div>
+    
+    <div class="node node-orange" style="width: 70%; margin: 0 auto;">
+      #svgObject<span>SVG 画布真实 DOM 挂载点 (引擎渲染至此)</span>
+    </div>
+    
+    <div class="arrow-down" style="margin-top: 25px; padding-top: 15px; border-top: 2px dashed #cbd5e1;">
+      <span class="arrow-text" style="font-weight: bold; margin-bottom: -15px; z-index: 10;">双版本无缝适配打包</span>
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+    </div>
+    
+    <div class="box" style="background: #f1f5f9; border-color: #94a3b8; margin-bottom: 0;">
+      <div class="box-title" style="border-bottom-color: #cbd5e1; margin-bottom: 10px; padding-bottom: 5px;">📦 最终发布产物 (基于 Monorepo 构建)</div>
+      <div class="flex-row">
+        <div class="node" style="background: white; padding: 12px;">svg-web-editor-vue2</div>
+        <div class="node" style="background: white; padding: 12px;">svg-web-editor-vue3</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

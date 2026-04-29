@@ -33,53 +33,7 @@
 ## 二、 整体方案架构设计
 
 项目采用**严格的分层解耦设计**，确保 SDK 的高可维护性与易扩展性：
-
-```mermaid
-flowchart TB
-    subgraph Outputs["📦 最终发布产物 (基于 Monorepo 构建)"]
-        direction LR
-        V2["svg-web-editor-vue2 (适配 Vue2)"]
-        V3["svg-web-editor-vue3 (适配 Vue3)"]
-    end
-
-    subgraph Root["🧩 SvgEditor.vue (SDK 根组件)"]
-        direction TB
-        
-        subgraph StateLayer["🧠 状态层：useEditorState Composable"]
-            direction LR
-            Service["EditorCommandService\n(服务层：封装操作 API)"]
-            Engine["PosterEditor\n(底层 SVG 渲染引擎)"]
-            
-            Service --"指令操作 (text/font/history 等)"--> Engine
-            Engine --"派发事件 (select/history/click)"--> 状态更新
-        end
-        
-        状态更新(("全局响应式状态\n(选中态、字号、颜色等)"))
-        
-        StateLayer ==> 状态更新
-        
-        subgraph UILayer["🎨 视图层：业务 UI 组件"]
-            direction LR
-            TopBar["EditorTopBar (顶部操作栏)\n- 撤销/重做\n- 添加文字\n- 多格式导出"]
-            ContextBar["EditorContextToolbar (上下文工具栏)\n- 智能越界碰撞与定位跟随\n- 字号调节面板\n- HSV 拾色器组件"]
-        end
-        
-        状态更新 --"Props 状态向下透传"--> UILayer
-        UILayer --"用户交互触发指令"--> Service
-        
-        Canvas[("#svgObject\n(SVG 画布真实 DOM 挂载点)")]
-        
-        Engine -. "渲染图像" .-> Canvas
-        ContextBar -. "MutationObserver 监听" .-> Canvas
-    end
-
-    Root === "双版本无缝适配" ===> Outputs
-    
-    classDef layer fill:#f9f9f9,stroke:#333,stroke-width:1px,stroke-dasharray: 5 5;
-    class StateLayer,UILayer layer;
-    classDef state fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
-    class 状态更新 state;
-```
+![SVG简易编辑器整体架构图](../image/svg-web-editor-architecture.png)
 
 1. **状态层 (`useEditorState`)：** 作为唯一持有底层实例（PosterEditor）的模块，负责拦截底层事件并维护响应式的全局状态。
 2. **服务层 (`EditorCommandService`)：** 对底层 API 做了面向业务的二次封装，统一命令的命名空间。
