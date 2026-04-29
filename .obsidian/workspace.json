@@ -11,14 +11,12 @@
             "id": "1fa80ad7da5c3de4",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "image",
               "state": {
-                "file": "Inbox/SVG简易编辑器SDK技术方案.md",
-                "mode": "source",
-                "source": false
+                "file": "vue2_migration_diagram.png"
               },
-              "icon": "lucide-file",
-              "title": "SVG简易编辑器SDK技术方案"
+              "icon": "lucide-image",
+              "title": "vue2_migration_diagram"
             }
           }
         ]
@@ -174,14 +172,15 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "1fa80ad7da5c3de4",
+  "active": "8dd997936b4bac9a",
   "lastOpenFiles": [
-    "doc-creator.zip",
-    "doc-creator-intro.md",
-    "vue2_migration_plan.md",
     "vue2_migration_diagram.png",
-    "Inbox/test_mermaid.md",
+    "Inbox/收集箱.md",
+    "doc-creator-intro.md",
     "Inbox/SVG简易编辑器SDK技术方案.md",
+    "Inbox/test_mermaid.md",
+    "doc-creator.zip",
+    "vue2_migration_plan.md",
     "未命名.base",
     "未命名 1.base",
     "未命名 2.base",
@@ -208,10 +207,8 @@
     "02-数据库/SQL必知必会（使用psql学习）.md",
     "04-读书笔记/编程珠玑.md",
     "readme.md",
-    "Inbox/收集箱.md",
     "SQL必知必会（使用psql学习）.md",
     "Inbox",
-    "05-工具效率",
     "cocos2d-x 学习.md",
     "深入浅出Nodejs.md",
     "编程珠玑.md",
