@@ -173,8 +173,12 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "b78aba2bde2fed1b",
+  "active": "440e83c3936247d9",
   "lastOpenFiles": [
+    "Inbox/SVG简易编辑器SDK研发汇报.md",
+    "architecture.mmd",
+    "architecture.png",
+    "汇报总结.md",
     "06-技术调研/微信小程序虚拟商品支付调研.md",
     "05-工具效率/AI垂类业务场景与应用深度解析.md",
     "image/ai-insights/diagram-ai-drama.png",
@@ -186,7 +190,6 @@
     "image/ai-insights/cover-code.png",
     "image/ai-insights/cover-text.png",
     "image/ai-insights/cover-image.png",
-    "image/ai-insights/cover-video.png",
     "image/ai-insights",
     "01-编程语言/cocos2d-x 学习.md",
     "01-编程语言/深入浅出Nodejs.md",
@@ -208,7 +211,6 @@
     "AI_Concept_Template.md.md",
     "conflict-files-obsidian-git.md",
     "image",
-    "读书笔记",
     "test.md"
   ]
 }
