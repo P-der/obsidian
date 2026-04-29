@@ -11,12 +11,14 @@
             "id": "1fa80ad7da5c3de4",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "vue2_migration_diagram.png"
+                "file": "06-技术调研/微信小程序虚拟商品支付调研.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-image",
-              "title": "vue2_migration_diagram"
+              "icon": "lucide-file",
+              "title": "微信小程序虚拟商品支付调研"
             }
           }
         ]
@@ -174,13 +176,13 @@
   },
   "active": "8dd997936b4bac9a",
   "lastOpenFiles": [
-    "vue2_migration_diagram.png",
     "Inbox/收集箱.md",
+    "vue2_migration_plan.md",
+    "vue2_migration_diagram.png",
     "doc-creator-intro.md",
     "Inbox/SVG简易编辑器SDK技术方案.md",
     "Inbox/test_mermaid.md",
     "doc-creator.zip",
-    "vue2_migration_plan.md",
     "未命名.base",
     "未命名 1.base",
     "未命名 2.base",
