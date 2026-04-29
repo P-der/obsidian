@@ -176,6 +176,8 @@
   },
   "active": "1fa80ad7da5c3de4",
   "lastOpenFiles": [
+    "vue2_migration_plan.md",
+    "vue2_migration_diagram.png",
     "Inbox/test_mermaid.md",
     "Inbox/SVG简易编辑器SDK技术方案.md",
     "未命名.base",
@@ -198,7 +200,6 @@
     "image/ai-insights/diagram-rag.png",
     "image/ai-insights/cover-fusion.png",
     "image/ai-insights/cover-code.png",
-    "image/ai-insights/cover-text.png",
     "image/ai-insights",
     "01-编程语言/cocos2d-x 学习.md",
     "01-编程语言/深入浅出Nodejs.md",
